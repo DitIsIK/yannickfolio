@@ -399,7 +399,7 @@ const NavBar = ({ isBatterySavingOn, addTab }) => {
                 </span>
               </a>
             </motion.li>
-            {/* <motion.li
+            <motion.li
               className={activeLink === "feed" ? "active nav-item" : "nav-item"}
               whileHover={screenWidth > 992 ? { scale: 1.1, rotate: -2 } : {}}
               whileTap={screenWidth > 992 ? { scale: 0.9, rotate: 2 } : {}}
@@ -415,7 +415,7 @@ const NavBar = ({ isBatterySavingOn, addTab }) => {
               >
                 <span className="navbar-text">FEED</span>
               </a>
-            </motion.li> */}
+            </motion.li>
           </motion.ul>
         </motion.div>
       </div>

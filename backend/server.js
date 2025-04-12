@@ -16,6 +16,8 @@ app.register(require("@fastify/cors"), {
     "https://kartavya-singh.com",
     "http://localhost:3000",
     "http://localhost:3001",
+    "http://localhost:3002",
+    "http://localhost:9200",
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -106,7 +108,7 @@ const aiRoutes = require("./routes/aiRoutes");
 app.register(aiRoutes, { prefix: "/api/ai" });
 
 // Import the main function from aiChatBotManager
-const { main: initializeIndex } = require("./controllers/aiChatBotManager");
+// const { main: initializeIndex } = require("./controllers/aiChatBotManager");
 
 // Call initializeIndex() when the backend starts
 // initializeIndex();
@@ -253,7 +255,7 @@ setInterval(async () => {
 }, 3600 * 1000); // 1 hour interval (3600000 ms)
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen({ port: PORT, host: "0.0.0.0" }, (err, address) => {
   if (err) {
     console.error(err);

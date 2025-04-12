@@ -1,36 +1,74 @@
+// controllers/aiChatBotManager.js
 const fs = require("fs");
 const path = require("path");
-const { Client } = require("@opensearch-project/opensearch");
-const { Configuration, OpenAIApi } = require("openai");
-require("dotenv").config();
+const {
+  opensearchClient,
+  waitForOpenSearchConnection,
+} = require("../config/opensearch");
+const { Configuration, OpenAIApi } = require("openai"); // OpenAI integration remains commented out
+const dotenv = require("dotenv");
+dotenv.config();
 
-// Initialize OpenSearch client (use OPENSEARCH_URL, or default to localhost)
-const opensearchClient = new Client({
-  node: process.env.OPENSEARCH_URL || "http://localhost:9200",
-  auth: {
-    username: process.env.OPENSEARCH_USER || "admin",
-    password: process.env.OPENSEARCH_INITIAL_ADMIN_PASSWORD || "admin",
-  },
-  ssl: { rejectUnauthorized: false },
-});
+const {
+  MIN_DB,
+  MAX_DB,
+  MIN_GITHUB,
+  MAX_GITHUB,
+  MIN_RESUME,
+  MAX_RESUME,
+  MAX_PROMPT_CHARS,
+  DB_WEIGHT,
+  GH_WEIGHT,
+  RES_WEIGHT,
+} = require("../config/constants");
 
-// Initialize OpenAI client
-// const openaiClient = new OpenAIApi(
-//   new Configuration({ apiKey: process.env.OPENAI_API_KEY })
-// );
-
-// File paths for context data and cache
+// File paths for context data and cache.
 const DB_FILE = path.join(__dirname, "../data/db-context.json");
 const GITHUB_FILE = path.join(__dirname, "../data/github-context.json");
 const RESUME_FILE = path.join(__dirname, "../data/resume-context.json");
 const CACHE_FILE = path.join(__dirname, "../data/cache.json");
-const INDEX_NAME = "context-index";
+const INDEX_NAME = process.env.INDEX_NAME || "context-index";
 
 /**
- * Load JSON data files and break them into searchable chunks.
- * - Each database table entry is a chunk.
- * - Each GitHub repo is a chunk.
- * - Resume text is split by all-caps headings into sections.
+ * Waits for the specified index in OpenSearch to have a healthy status.
+ */
+async function waitForIndexReadiness(
+  indexName,
+  desiredStatus = "yellow",
+  timeout = 60000
+) {
+  const startTime = Date.now();
+  while (Date.now() - startTime < timeout) {
+    try {
+      const healthResponse = await opensearchClient.cluster.health({
+        index: indexName,
+      });
+      const indexStatus = healthResponse.body.status;
+      console.log(
+        `[${new Date().toISOString()}] Index [${indexName}] health status: ${indexStatus}`
+      );
+      if (indexStatus === "yellow" || indexStatus === "green") {
+        console.log(
+          `[${new Date().toISOString()}] Index [${indexName}] is ready.`
+        );
+        return;
+      }
+    } catch (err) {
+      console.warn(
+        `[${new Date().toISOString()}] Error checking index health: ${
+          err.message
+        }`
+      );
+    }
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  }
+  throw new Error(
+    `Index [${indexName}] did not reach '${desiredStatus}' state within ${timeout} ms.`
+  );
+}
+
+/**
+ * Loads JSON data from files and breaks it into chunks.
  */
 async function loadAndChunkData() {
   console.log(
@@ -41,18 +79,14 @@ async function loadAndChunkData() {
   const resumeData = JSON.parse(fs.readFileSync(RESUME_FILE, "utf8"));
 
   const chunks = [];
-
-  // 1. Chunk database tables: one chunk per entry
+  // Chunk DB data.
   Object.entries(dbData).forEach(([tableName, entries]) => {
     if (!Array.isArray(entries)) return;
     entries.forEach((entry) => {
-      // Title field (e.g. "experienceTitle", "projectTitle", etc.)
       let titleKey = Object.keys(entry).find((k) =>
         k.toLowerCase().includes("title")
       );
       let title = titleKey ? entry[titleKey] : "";
-
-      // Content: combine tagline and paragraphs if present
       let contentParts = [];
       let taglineKey = Object.keys(entry).find((k) =>
         k.toLowerCase().includes("tagline")
@@ -60,28 +94,19 @@ async function loadAndChunkData() {
       let paragraphsKey = Object.keys(entry).find((k) =>
         k.toLowerCase().includes("paragraphs")
       );
-      if (taglineKey && entry[taglineKey]) {
-        contentParts.push(entry[taglineKey]);
-      }
-      if (paragraphsKey && Array.isArray(entry[paragraphsKey])) {
+      if (taglineKey && entry[taglineKey]) contentParts.push(entry[taglineKey]);
+      if (paragraphsKey && Array.isArray(entry[paragraphsKey]))
         contentParts.push(...entry[paragraphsKey]);
-      }
-      // If still empty, check for generic description fields
       if (contentParts.length === 0) {
         if (entry.description) contentParts.push(entry.description);
         if (entry.skillDescription) contentParts.push(entry.skillDescription);
       }
       const content = contentParts.join(" ");
-      chunks.push({
-        source: "db",
-        section: tableName,
-        title: title,
-        content: content,
-      });
+      chunks.push({ source: "db", section: tableName, title, content });
     });
   });
 
-  // 2. Chunk GitHub data: each repository is a chunk
+  // Chunk GitHub data.
   if (Array.isArray(githubData)) {
     githubData.forEach((repo) => {
       const title = repo.name || repo.full_name || "";
@@ -89,15 +114,11 @@ async function loadAndChunkData() {
       if (repo.description) contentParts.push(repo.description);
       if (repo.language) contentParts.push(`Language: ${repo.language}`);
       const content = contentParts.join(" | ");
-      chunks.push({
-        source: "github",
-        title: title,
-        content: content,
-      });
+      chunks.push({ source: "github", title, content });
     });
   }
 
-  // 3. Chunk resume data by all-caps headings
+  // Chunk Resume data.
   if (resumeData.resume_text) {
     const lines = resumeData.resume_text
       .split("\n")
@@ -106,7 +127,6 @@ async function loadAndChunkData() {
     let currentSection = "General";
     let sectionContent = { General: [] };
     lines.forEach((line) => {
-      // Detect section headers as lines in all caps (letters, numbers, spaces, hyphens)
       if (/^[A-Z][A-Z0-9 &\-]+$/.test(line)) {
         currentSection = line;
         sectionContent[currentSection] = [];
@@ -118,7 +138,7 @@ async function loadAndChunkData() {
       if (lines.length > 0) {
         chunks.push({
           source: "resume",
-          section: section,
+          section,
           title: section,
           content: lines.join(" "),
         });
@@ -133,15 +153,12 @@ async function loadAndChunkData() {
 }
 
 /**
- * Index all chunks into OpenSearch using a bulk operation.
- * This recreates the "context-index" on each run for fresh data.
+ * Indexes chunks into OpenSearch using the bulk API.
  */
 async function indexChunks(chunks) {
   console.log(
     `[${new Date().toISOString()}] Indexing chunks into OpenSearch...`
   );
-
-  // Delete existing index if it exists
   try {
     const exists = await opensearchClient.indices.exists({ index: INDEX_NAME });
     if (exists.body) {
@@ -153,7 +170,6 @@ async function indexChunks(chunks) {
   } catch (err) {
     console.error("Error checking/deleting index:", err);
   }
-  // Create new index with field mappings
   try {
     await opensearchClient.indices.create({
       index: INDEX_NAME,
@@ -173,14 +189,16 @@ async function indexChunks(chunks) {
     console.error("Error creating index:", err);
     return;
   }
-  // Bulk index all documents
-  const body = [];
+  const bulkBody = [];
   chunks.forEach((chunk, idx) => {
-    body.push({ index: { _index: INDEX_NAME, _id: idx + 1 } });
-    body.push(chunk);
+    bulkBody.push({ index: { _index: INDEX_NAME, _id: idx + 1 } });
+    bulkBody.push(chunk);
   });
   try {
-    const bulkResponse = await opensearchClient.bulk({ refresh: true, body });
+    const bulkResponse = await opensearchClient.bulk({
+      refresh: true,
+      body: bulkBody,
+    });
     if (bulkResponse.body.errors) {
       console.error("Bulk indexing errors:", bulkResponse.body);
     } else {
@@ -196,57 +214,104 @@ async function indexChunks(chunks) {
 }
 
 /**
- * Search the OpenSearch index for the top 5 relevant chunks for the given query.
- * Uses a full-text multi-match on title (boosted) and content.
+ * Dynamically searches for context chunks per source with field-level weighting and dynamic limits.
  */
-async function searchChunks(query) {
-  console.log(`[${new Date().toISOString()}] Searching for query: "${query}"`);
-  try {
-    const result = await opensearchClient.search({
-      index: INDEX_NAME,
-      size: 5,
-      body: {
-        query: {
-          multi_match: {
-            query: query,
-            fields: ["title^2", "content"],
-          },
+async function dynamicSearchChunks(query) {
+  const fields = ["title^2", "content"];
+  // Base multi_match query.
+  function baseQuery() {
+    return { multi_match: { query, fields, type: "best_fields" } };
+  }
+  // Searches a given source.
+  async function searchSource(source, size) {
+    const body = {
+      query: {
+        bool: {
+          must: baseQuery(),
+          filter: { term: { source } },
         },
       },
+    };
+    const result = await opensearchClient.search({
+      index: INDEX_NAME,
+      size,
+      body,
     });
-    const hits = result.body.hits.hits;
-    console.log(
-      `[${new Date().toISOString()}] Retrieved ${hits.length} relevant chunks.`
-    );
-    return hits.map((hit) => hit._source);
-  } catch (err) {
-    console.error("Search error:", err);
-    return [];
+    return result.body.hits.hits;
   }
+
+  // Retrieve hits per source (up to the soft maximum).
+  const [dbHits, ghHits, resHits] = await Promise.all([
+    searchSource("db", MAX_DB),
+    searchSource("github", MAX_GITHUB),
+    searchSource("resume", MAX_RESUME),
+  ]);
+
+  // Helper: select hits with a hard minimum and then extras, applying a weight.
+  function selectHits(hits, min, max, weight) {
+    const selected = [];
+    const initial = hits.slice(0, min);
+    selected.push(...initial);
+    const extras = hits.slice(min).map((hit) => {
+      hit.adjustedScore = hit._score * weight;
+      return hit;
+    });
+    extras.sort((a, b) => b.adjustedScore - a.adjustedScore);
+    for (const hit of extras) {
+      if (selected.length < max) {
+        selected.push(hit);
+      } else break;
+    }
+    return selected;
+  }
+
+  const selectedDB = selectHits(dbHits, MIN_DB, MAX_DB, DB_WEIGHT);
+  const selectedGH = selectHits(ghHits, MIN_GITHUB, MAX_GITHUB, GH_WEIGHT);
+  const selectedRES = selectHits(resHits, MIN_RESUME, MAX_RESUME, RES_WEIGHT);
+
+  // Merge results and sort by original score.
+  const merged = [...selectedDB, ...selectedGH, ...selectedRES];
+  merged.sort((a, b) => b._score - a._score);
+
+  // Enforce a global character budget.
+  let totalChars = 0;
+  const finalHits = [];
+  for (const hit of merged) {
+    const contentLength = (hit._source.content || "").length;
+    if (totalChars + contentLength <= MAX_PROMPT_CHARS) {
+      finalHits.push(hit);
+      totalChars += contentLength;
+    } else {
+      break;
+    }
+  }
+  console.log(
+    `[${new Date().toISOString()}] Selected ${
+      finalHits.length
+    } final hits with total character count ${totalChars}.`
+  );
+  return finalHits;
 }
 
 /**
- * Build a custom prompt for OpenAI using the retrieved chunks and the original user query.
- * Each chunk is labeled by its source (DB, GitHub, Resume) and included in the prompt context.
+ * Builds a prompt using the selected chunks and the original query.
  */
 function buildPrompt(chunks, userQuery) {
-  console.log(`[${new Date().toISOString()}] Building prompt from chunks...`);
   let prompt = "Use the following information to answer the question:\n\n";
-  chunks.forEach((chunk) => {
-    if (chunk.source === "db") {
-      prompt += `- [DB] ${chunk.title}: ${chunk.content}\n`;
-    } else if (chunk.source === "github") {
-      prompt += `- [GitHub] ${chunk.title}: ${chunk.content}\n`;
-    } else if (chunk.source === "resume") {
-      prompt += `- [Resume - ${chunk.section}] ${chunk.content}\n`;
-    }
-  });
-  prompt += `\nQuestion: ${userQuery}\nAnswer:`;
+  for (const chunk of chunks) {
+    let tag = "";
+    if (chunk._source.source === "db") tag = "[DB]";
+    else if (chunk._source.source === "github") tag = "[GitHub]";
+    else if (chunk._source.source === "resume")
+      tag = `[Resume - ${chunk._source.section}]`;
+    prompt += `${tag} ${chunk._source.title}: ${chunk._source.content}\n\n`;
+  }
+  prompt += `Question: ${userQuery}\nAnswer:`;
   return prompt;
 }
 
 /**
- * Load the response cache (if it exists) or return a new empty object.
+ * Cache helper functions.
  */
 function loadCache() {
   if (fs.existsSync(CACHE_FILE)) {
@@ -260,9 +325,6 @@ function loadCache() {
   return {};
 }
 
-/**
- * Save the cache object to the JSON file.
- */
 function saveCache(cache) {
   try {
     fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2));
@@ -272,67 +334,80 @@ function saveCache(cache) {
 }
 
 /**
- * Query OpenAI (GPT-4o) with the prompt and return the answer.
- * Uses a local JSON cache to skip API calls for repeated prompts.
+ * (Commented out) Function to query OpenAI with the prompt.
  */
-async function queryOpenAI(prompt) {
-  const cache = loadCache();
-  if (cache[prompt]) {
-    console.log(`[${new Date().toISOString()}] Cache hit for prompt.`);
-    return cache[prompt];
-  }
-  console.log(
-    `[${new Date().toISOString()}] Cache miss; sending prompt to OpenAI.`
-  );
-  const response = await openaiClient.createChatCompletion({
-    model: "gpt-4o",
-    messages: [
-      { role: "system", content: "You are a helpful assistant." },
-      { role: "user", content: prompt },
-    ],
-    max_tokens: 500,
-    temperature: 0.7,
-  });
-  const answer = response.data.choices[0].message.content.trim();
-  cache[prompt] = answer;
-  saveCache(cache);
-  return answer;
-}
+// async function queryOpenAI(prompt) {
+//   const cache = loadCache();
+//   if (cache[prompt]) {
+//     console.log(`[${new Date().toISOString()}] Cache hit for prompt.`);
+//     return cache[prompt];
+//   }
+//   console.log(`[${new Date().toISOString()}] Cache miss; sending prompt to OpenAI.`);
+//   const response = await openaiClient.createChatCompletion({
+//     model: "gpt-4o",
+//     messages: [
+//       { role: "system", content: "You are a helpful assistant." },
+//       { role: "user", content: prompt },
+//     ],
+//     max_tokens: 500,
+//     temperature: 0.7,
+//   });
+//   const answer = response.data.choices[0].message.content.trim();
+//   cache[prompt] = answer;
+//   saveCache(cache);
+//   return answer;
+// }
 
 /**
- * Main interface: given a user query, search context, build prompt, and get an answer.
+ * Main interface: retrieves context, builds the prompt, and returns the prompt.
  */
 async function getAnswer(userQuery) {
-  const relevantChunks = await searchChunks(userQuery);
+  const retrievedHits = await dynamicSearchChunks(userQuery);
   console.log(
-    `[${new Date().toISOString()}] Relevant chunks:\n${JSON.stringify(
-      relevantChunks,
+    `[${new Date().toISOString()}] Retrieved hits: ${JSON.stringify(
+      retrievedHits,
       null,
       2
-    )}\n`
+    )}`
   );
-  const prompt = buildPrompt(relevantChunks, userQuery);
+  const prompt = buildPrompt(retrievedHits, userQuery);
   console.log(`[${new Date().toISOString()}] Final prompt:\n${prompt}\n`);
-  const answer = await queryOpenAI(prompt);
-  return answer;
+  // const answer = await queryOpenAI(prompt);
+  // return answer;
+  return prompt;
 }
 
 /**
- * Re-index all data: load, chunk, and index. This function is run on startup and every hour.
+ * Re-indexes all data: loads, chunks, and indexes documents.
+ * Waits for OpenSearch to be ready before proceeding.
  */
 async function reindexAll() {
   try {
+    await waitForOpenSearchConnection();
     const chunks = await loadAndChunkData();
     await indexChunks(chunks);
+    await waitForIndexReadiness(INDEX_NAME, "yellow", 60000);
+    console.log(
+      `[${new Date().toISOString()}] Re-indexing complete. The index is ready for processing.`
+    );
+    // Optionally, trigger further processing here.
   } catch (err) {
     console.error("Error during reindexAll:", err);
   }
 }
 
-// Perform initial indexing at startup
-reindexAll();
-// Schedule re-indexing every hour (3600000 ms)
-setInterval(reindexAll, 3600000);
+// Initialization: wait for connection, then reindex data on startup.
+async function initializeIndexWhenReady() {
+  try {
+    await waitForOpenSearchConnection();
+    await reindexAll();
+  } catch (err) {
+    console.error("Error during index initialization:", err);
+  }
+}
+initializeIndexWhenReady();
 
-// Export functions for external use if needed
+// Schedule re-indexing every hour.
+setInterval(reindexAll, 3600 * 1000);
+
 module.exports = { getAnswer, reindexAll };

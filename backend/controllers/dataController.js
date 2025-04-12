@@ -1,5 +1,5 @@
 // controllers/dataController.js
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { getDB } = require("../config/mongodb");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");

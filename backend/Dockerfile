@@ -1,8 +1,13 @@
-# Sample Dockerfile
-FROM node:20-alpine
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install
+FROM node:20.12.1-alpine
+
+WORKDIR /usr/src/app
+
+# Copy package files and install production dependencies.
+COPY package*.json ./
+RUN npm ci --production
+
+# Copy the rest of the source code.
 COPY . .
-EXPOSE 5000
-CMD ["npm", "start"]
+
+EXPOSE 3000
+CMD ["node", "server.js"]

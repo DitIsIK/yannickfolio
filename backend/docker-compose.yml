@@ -1,5 +1,29 @@
 version: "3.8"
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile # Path to your Dockerfile for the backend service.
+    container_name: KartavyaPortfolioMERNBackend
+    environment:
+      - PORT=${PORT}
+      - MONGO_URI=${MONGO_URI}
+      - ADMIN_SECRET_USERNAME=${ADMIN_SECRET_USERNAME}
+      - ADMIN_SECRET_PASSWORD=${ADMIN_SECRET_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENSEARCH_URL=${OPENSEARCH_URL} # Should be set to "http://opensearch:9200" on Docker network.
+      - OPENSEARCH_USERNAME=${OPENSEARCH_USERNAME}
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+      - INDEX_NAME=${INDEX_NAME}
+    ports:
+      - "3001:3000"
+    depends_on:
+      - opensearch
+    networks:
+      - opensearch-net
+
   opensearch:
     image: opensearchproject/opensearch:latest
     container_name: KartavyaPortfolioAI
@@ -27,7 +51,7 @@ services:
     image: opensearchproject/opensearch-dashboards:latest
     container_name: opensearch-dashboards
     environment:
-      - OPENSEARCH_HOSTS=["http://KartavyaPortfolioAI:9200"]
+      - OPENSEARCH_HOSTS=["http://opensearch:9200"]
     ports:
       - "5601:5601"
     networks:
