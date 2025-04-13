@@ -67,7 +67,7 @@ services:
     environment:
       - GPU_ACCELERATION=${GPU_ACCELERATION}
       - MODEL_NAME=${MODEL_NAME}
-      - TRANSFORMERS_CACHE=/cache/huggingface
+      - HF_HOME=/cache/huggingface
     ports:
       - "8000:8000"
     volumes:

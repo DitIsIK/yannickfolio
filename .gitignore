@@ -5,12 +5,17 @@ node_modules/
 .env
 frontend/.env
 backend/.env
+backend/deepseek/.env
+*/.env
 
 # Build output
 frontend/build/
 
 #venvs
 *venv
+
+#caches
+*__pycache__/
 
 # Logs
 *.log
