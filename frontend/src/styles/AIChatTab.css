@@ -1,0 +1,224 @@
+/* Root container: fixed full viewport height with padding */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  background-color: #212529;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff;
+}
+
+/* Header styling with subtle fade-in */
+.chat-header {
+  text-align: center;
+  margin-bottom: 10px;
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+.chat-title {
+  font-size: 2rem;
+  margin: 0;
+}
+
+/* Chat box: scrollable area for messages */
+.chat-box {
+  width: 100%;
+  max-width: 600px;
+  flex: 1;
+  background-color: #495057;
+  border-radius: 8px;
+  padding: 20px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 20px auto;
+}
+
+/* Message bubbles with entrance animation */
+.message {
+  max-width: 80%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  word-break: break-word;
+  opacity: 0;
+  animation: fadeInUp 0.5s forwards;
+}
+
+/* Different styles for user and AI messages */
+.user-message {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: #fff;
+}
+.ai-message {
+  align-self: flex-start;
+  background-color: #343a40;
+  color: #fff;
+}
+
+/* Intro section with welcoming animation */
+.intro-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slideIn 1s ease-out forwards;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  margin-bottom: 20px;
+}
+.intro-message {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #fff;
+  animation: typewriter 4s steps(40) 1s 1 normal both,
+    blinkTextCursor 0.75s step-end infinite;
+}
+
+/* Suggested question buttons */
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.suggestion-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: transform 0.2s, background-color 0.2s;
+  animation: fadeIn 1s ease-out;
+}
+.suggestion-btn:hover {
+  transform: scale(1.05);
+  background-color: #0056b3;
+}
+
+/* Chat input form styling */
+.chat-form {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  margin: 0 auto;
+}
+.chat-input {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 20px 0 0 20px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+.chat-input:focus {
+  border: 2px solid #007bff;
+}
+.chat-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+.chat-button:hover {
+  background-color: #0056b3;
+}
+
+/* Loading spinner inside the loading message */
+.loading-message {
+  display: flex;
+  align-items: center;
+}
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  animation: spin 1s linear infinite;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Typewriter effect for the intro message */
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes blinkTextCursor {
+  from {
+    border-right-color: rgba(255, 255, 255, 0.75);
+  }
+  to {
+    border-right-color: transparent;
+  }
+}
+
+/* Ensure container does not exceed 100vh and chat box is responsive */
+@media (max-height: 100vh) {
+  .chat-box {
+    max-height: 65vh;
+  }
+}

@@ -6,21 +6,23 @@ services:
       dockerfile: Dockerfile # Path to your Dockerfile for the backend service.
     container_name: KartavyaPortfolioMERNBackend
     environment:
-      - PORT=${PORT}
-      - MONGO_URI=${MONGO_URI}
-      - ADMIN_SECRET_USERNAME=${ADMIN_SECRET_USERNAME}
-      - ADMIN_SECRET_PASSWORD=${ADMIN_SECRET_PASSWORD}
-      - JWT_SECRET=${JWT_SECRET}
-      - GITHUB_TOKEN=${GITHUB_TOKEN}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - OPENSEARCH_URL=${OPENSEARCH_URL} # Should be set to "http://opensearch:9200" on Docker network.
-      - OPENSEARCH_USERNAME=${OPENSEARCH_USERNAME}
-      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
-      - INDEX_NAME=${INDEX_NAME}
+      PORT: ${PORT}
+      MONGO_URI: ${MONGO_URI}
+      ADMIN_SECRET_USERNAME: ${ADMIN_SECRET_USERNAME}
+      ADMIN_SECRET_PASSWORD: ${ADMIN_SECRET_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      # OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENSEARCH_URL: ${OPENSEARCH_URL}
+      DEEPSEEK_URL: ${DEEPSEEK_URL}
+      OPENSEARCH_USERNAME: ${OPENSEARCH_USERNAME}
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+      INDEX_NAME: ${INDEX_NAME}
     ports:
       - "3001:3000"
     depends_on:
       - opensearch
+      - deepseek # Ensure deepseek starts before the backend makes API calls.
     networks:
       - opensearch-net
 
@@ -28,17 +30,17 @@ services:
     image: opensearchproject/opensearch:latest
     container_name: KartavyaPortfolioAI
     environment:
-      - cluster.name=KartavyaPortfolioAI-cluster
-      - node.name=KartavyaPortfolioAI
-      - plugins.security.disabled=true
-      - discovery.type=single-node
-      - bootstrap.memory_lock=true
-      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
-      - cluster.routing.allocation.allow_rebalance=always
-      - cluster.routing.allocation.enable=all
-      - cluster.routing.allocation.node_concurrent_recoveries=2
-      - cluster.routing.allocation.disk.threshold_enabled=false
-      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+      cluster.name: KartavyaPortfolioAI-cluster
+      node.name: KartavyaPortfolioAI
+      plugins.security.disabled: "true"
+      discovery.type: single-node
+      bootstrap.memory_lock: "true"
+      OPENSEARCH_JAVA_OPTS: "-Xms512m -Xmx512m"
+      cluster.routing.allocation.allow_rebalance: always
+      cluster.routing.allocation.enable: all
+      cluster.routing.allocation.node_concurrent_recoveries: "2"
+      cluster.routing.allocation.disk.threshold_enabled: "false"
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
     ports:
       - "9200:9200"
       - "9600:9600"
@@ -49,16 +51,33 @@ services:
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:latest
-    container_name: opensearch-dashboards
+    container_name: ZZ-KartavyaPortfolioAI-dashboards
     environment:
-      - OPENSEARCH_HOSTS=["http://opensearch:9200"]
+      OPENSEARCH_HOSTS: '["http://opensearch:9200"]'
     ports:
       - "5601:5601"
     networks:
       - opensearch-net
 
+  deepseek:
+    build:
+      context: ./deepseek
+      dockerfile: Dockerfile
+    container_name: KartavyaPortfolioDeepSeek
+    environment:
+      - GPU_ACCELERATION=${GPU_ACCELERATION}
+      - MODEL_NAME=${MODEL_NAME}
+      - TRANSFORMERS_CACHE=/cache/huggingface
+    ports:
+      - "8000:8000"
+    volumes:
+      - deepseek-cache:/cache/huggingface
+    networks:
+      - opensearch-net
+
 volumes:
   opensearch-data:
+  deepseek-cache:
 
 networks:
   opensearch-net:

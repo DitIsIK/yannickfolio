@@ -5,8 +5,11 @@ const {
   opensearchClient,
   waitForOpenSearchConnection,
 } = require("../config/opensearch");
-const { Configuration, OpenAIApi } = require("openai"); // OpenAI integration remains commented out
+// const { openaiClient } = require("../config/openai");
+const { getDeepseekResponse } = require("../config/deepseek");
+
 const dotenv = require("dotenv");
+const axios = require("axios");
 dotenv.config();
 
 const {
@@ -334,29 +337,34 @@ function saveCache(cache) {
 }
 
 /**
- * (Commented out) Function to query OpenAI with the prompt.
+ * Queries DeepSeek for a completion using the constructed prompt.
  */
-// async function queryOpenAI(prompt) {
-//   const cache = loadCache();
-//   if (cache[prompt]) {
-//     console.log(`[${new Date().toISOString()}] Cache hit for prompt.`);
-//     return cache[prompt];
-//   }
-//   console.log(`[${new Date().toISOString()}] Cache miss; sending prompt to OpenAI.`);
-//   const response = await openaiClient.createChatCompletion({
-//     model: "gpt-4o",
-//     messages: [
-//       { role: "system", content: "You are a helpful assistant." },
-//       { role: "user", content: prompt },
-//     ],
-//     max_tokens: 500,
-//     temperature: 0.7,
-//   });
-//   const answer = response.data.choices[0].message.content.trim();
-//   cache[prompt] = answer;
-//   saveCache(cache);
-//   return answer;
-// }
+async function queryDeepseek(prompt) {
+  const cache = loadCache();
+  if (cache[prompt]) {
+    console.log(`[${new Date().toISOString()}] Cache hit for prompt.`);
+    return cache[prompt];
+  }
+  console.log(
+    `[${new Date().toISOString()}] Cache miss; sending prompt to DeepSeek.`
+  );
+  try {
+    const response = await axios.post(
+      `${process.env.DEEPSEEK_URL}/completion`,
+      { prompt }
+    );
+    const answer = response.data.answer.trim();
+    cache[prompt] = answer;
+    saveCache(cache);
+    return answer;
+  } catch (err) {
+    // Log additional error information, if available:
+    if (err.response) {
+      console.error("DeepSeek error response data:", err.response.data);
+    }
+    throw new Error("DeepSeek request failed: " + err.message);
+  }
+}
 
 /**
  * Main interface: retrieves context, builds the prompt, and returns the prompt.
@@ -372,8 +380,9 @@ async function getAnswer(userQuery) {
   );
   const prompt = buildPrompt(retrievedHits, userQuery);
   console.log(`[${new Date().toISOString()}] Final prompt:\n${prompt}\n`);
-  // const answer = await queryOpenAI(prompt);
-  // return answer;
+  const answer = await queryDeepseek(prompt);
+  console.log(`[${new Date().toISOString()}] Answer:\n${answer}\n`);
+  return answer;
   return prompt;
 }
 

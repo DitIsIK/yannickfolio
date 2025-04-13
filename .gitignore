@@ -9,6 +9,9 @@ backend/.env
 # Build output
 frontend/build/
 
+#venvs
+*venv
+
 # Logs
 *.log
 logs/
