@@ -3,8 +3,8 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile # Path to your Dockerfile for the backend service.
-    container_name: KartavyaPortfolioMERNBackend
+      dockerfile: Dockerfile
+    container_name: KartavyaPortfolioBackend
     environment:
       PORT: ${PORT}
       MONGO_URI: ${MONGO_URI}
@@ -22,16 +22,16 @@ services:
       - "3001:3000"
     depends_on:
       - opensearch
-      - deepseek # Ensure deepseek starts before the backend makes API calls.
+      - deepseek
     networks:
       - opensearch-net
 
   opensearch:
     image: opensearchproject/opensearch:latest
-    container_name: KartavyaPortfolioAI
+    container_name: KartavyaPortfolioOpenSearch
     environment:
-      cluster.name: KartavyaPortfolioAI-cluster
-      node.name: KartavyaPortfolioAI
+      cluster.name: KartavyaPortfolioOpenSearch-cluster
+      node.name: KartavyaPortfolioOpenSearch
       plugins.security.disabled: "true"
       discovery.type: single-node
       bootstrap.memory_lock: "true"
@@ -51,7 +51,7 @@ services:
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:latest
-    container_name: ZZ-KartavyaPortfolioAI-dashboards
+    container_name: KartavyaPortfolioDashboard
     environment:
       OPENSEARCH_HOSTS: '["http://opensearch:9200"]'
     ports:
@@ -64,6 +64,7 @@ services:
       context: ./deepseek
       dockerfile: Dockerfile
     container_name: KartavyaPortfolioDeepSeek
+    hostname: deepseek # This ensures other containers can resolve "deepseek"
     environment:
       - GPU_ACCELERATION=${GPU_ACCELERATION}
       - MODEL_NAME=${MODEL_NAME}

@@ -2,6 +2,10 @@
 const { getAnswer } = require("../controllers/aiChatBotManager");
 
 async function aiRoutes(fastify, options) {
+  fastify.get("/", async (request, reply) => {
+    return { message: "Kartavya's AI Chatbot API is running." };
+  });
+
   fastify.post("/ask-chat", async (request, reply) => {
     try {
       const { query } = request.body;
