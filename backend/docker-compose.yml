@@ -29,7 +29,6 @@ services:
 
   opensearch:
     image: opensearchproject/opensearch:latest
-    # container_name: KartavyaPortfolioOpenSearch
     environment:
       cluster.name: KartavyaPortfolioOpenSearch-cluster
       node.name: KartavyaPortfolioOpenSearch
@@ -48,7 +47,9 @@ services:
     volumes:
       - opensearch-data:/usr/share/opensearch/data
     networks:
-      - opensearch-net
+      opensearch-net:
+        aliases:
+          - opensearch
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:latest
