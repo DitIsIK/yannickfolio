@@ -1,10 +1,11 @@
 version: "3.8"
 services:
   backend:
+    image: kartavya1710/kartavya-portfolio-mern-backend:latest
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: KartavyaPortfolioBackend
+    # container_name: KartavyaPortfolioBackend
     environment:
       PORT: ${PORT}
       MONGO_URI: ${MONGO_URI}
@@ -28,7 +29,7 @@ services:
 
   opensearch:
     image: opensearchproject/opensearch:latest
-    container_name: KartavyaPortfolioOpenSearch
+    # container_name: KartavyaPortfolioOpenSearch
     environment:
       cluster.name: KartavyaPortfolioOpenSearch-cluster
       node.name: KartavyaPortfolioOpenSearch
@@ -51,7 +52,7 @@ services:
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:latest
-    container_name: KartavyaPortfolioDashboard
+    # container_name: KartavyaPortfolioDashboard
     environment:
       OPENSEARCH_HOSTS: '["http://opensearch:9200"]'
     ports:
@@ -60,10 +61,11 @@ services:
       - opensearch-net
 
   deepseek:
+    image: kartavya1710/kartavya-portfolio-deepseek:latest
     build:
       context: ./deepseek
       dockerfile: Dockerfile
-    container_name: KartavyaPortfolioDeepSeek
+    # container_name: KartavyaPortfolioDeepSeek
     hostname: deepseek # This ensures other containers can resolve "deepseek"
     environment:
       - GPU_ACCELERATION=${GPU_ACCELERATION}
