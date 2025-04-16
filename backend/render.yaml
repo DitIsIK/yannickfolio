@@ -1,0 +1,21 @@
+services:
+  - type: docker
+    name: kartavya-mern-portfolio
+    env: docker
+    # Tell Render which docker-compose file to use.
+    dockerComposeFile: docker-compose.yml
+    autoDeploy: true
+    # Optional: Force pulling the latest base images during build.
+    buildCommand: "docker-compose build --pull"
+    # Start the application in detached mode.
+    startCommand: "docker-compose up -d"
+    # Expose the public HTTP route on the container port that your backend app listens on.
+    # In your docker-compose, the backend maps "3001:3000", meaning the container listens on 3000.
+    routes:
+      - type: HTTP
+        port: 3000
+    # Global environment variables can be added here.
+    # For example, setting NODE_ENV to production. (Other secrets should be set in Render’s dashboard.)
+    envVars:
+      - key: NODE_ENV
+        value: "production"
