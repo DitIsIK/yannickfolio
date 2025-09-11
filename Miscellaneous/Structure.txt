@@ -1,0 +1,532 @@
+PS D:\Desktop\All Projects\Kartavya-Portfolio-MERN> git ls-files
+.gitignore
+Miscellaneous/AI-Chat-Bot-Data Best Version/data/Singh_Kartavya_Resume2025.pdf
+Miscellaneous/AI-Chat-Bot-Data Best Version/data/chunk-content.json
+Miscellaneous/AI-Chat-Bot-Data Best Version/data/context-meta.json
+Miscellaneous/AI-Chat-Bot-Data Best Version/data/db-context.json
+Miscellaneous/AI-Chat-Bot-Data Best Version/data/github-context.json
+Miscellaneous/AI-Chat-Bot-Data Best Version/data/memory-index-meta.json
+Miscellaneous/AI-Chat-Bot-Data Best Version/data/memory-index.json
+Miscellaneous/AI-Chat-Bot-Data Best Version/data/resume-context.json
+Miscellaneous/AI-Chat-Bot/Dockerfile
+Miscellaneous/AI-Chat-Bot/aiChatBotManager.js
+Miscellaneous/AI-Chat-Bot/constants.js
+Miscellaneous/AI-Chat-Bot/deepseek.js
+Miscellaneous/AI-Chat-Bot/deepseek/Dockerfile
+Miscellaneous/AI-Chat-Bot/deepseek/__pycache__/app.cpython-312.pyc
+Miscellaneous/AI-Chat-Bot/deepseek/app.py
+Miscellaneous/AI-Chat-Bot/deepseek/requirements.txt
+Miscellaneous/AI-Chat-Bot/docker-compose.yml
+Miscellaneous/AI-Chat-Bot/embedding-service/package-lock.json
+Miscellaneous/AI-Chat-Bot/embedding-service/package.json
+Miscellaneous/AI-Chat-Bot/embedding-service/server.js
+Miscellaneous/AI-Chat-Bot/opensearch.js
+Miscellaneous/AI-Chat-Bot/opensearch.yml
+Miscellaneous/AI-Chat-Bot/render.yaml
+Miscellaneous/BackendBackup/config/mongodb.js
+Miscellaneous/BackendBackup/controllers/dataController.js
+Miscellaneous/BackendBackup/controllers/middlewareController.js
+Miscellaneous/BackendBackup/githubStats.js
+Miscellaneous/BackendBackup/routes/dataRoutes.js
+Miscellaneous/BackendBackup/server.js
+Miscellaneous/BackendFastifyBackup/config/mongodb.js
+Miscellaneous/BackendFastifyBackup/controllers/dataController.js
+Miscellaneous/BackendFastifyBackup/controllers/middlewareController.js
+Miscellaneous/BackendFastifyBackup/githubStats.js
+Miscellaneous/BackendFastifyBackup/ping.js
+Miscellaneous/BackendFastifyBackup/routes/dataRoutes.js
+Miscellaneous/BackendFastifyBackup/server.js
+Miscellaneous/Background copy.js
+Miscellaneous/DatabaseAISkeleton.txt
+Miscellaneous/DatabaseSkeletonSetup.txt
+Miscellaneous/Experiences.js
+Miscellaneous/GradientBG copy.js
+Miscellaneous/GradientBG1 copy.js
+Miscellaneous/HeroSection.js
+Miscellaneous/HonorsExperiences.js
+Miscellaneous/How to send curl requests.txt
+Miscellaneous/Involvements.js
+Miscellaneous/Kartavya-Portfolio-Database-Setup.py
+Miscellaneous/Projects.js
+Miscellaneous/SkillBG copy.js
+Miscellaneous/SkillPageOld.css
+Miscellaneous/SkillPageOld.js
+Miscellaneous/YearInReviews.js
+Miscellaneous/backend GoLang/config/mongo.go
+Miscellaneous/backend GoLang/config/openai.go
+Miscellaneous/backend GoLang/controller/aiContextManager.go
+Miscellaneous/backend GoLang/controller/dataController.go
+Miscellaneous/backend GoLang/controller/middleware.go
+Miscellaneous/backend GoLang/data/Singh_Kartavya_Resume2025.pdf
+Miscellaneous/backend GoLang/main.go
+Miscellaneous/backend GoLang/routes/airoutes.go
+Miscellaneous/backend GoLang/routes/dataroutes.go
+Miscellaneous/changeBG.py
+Miscellaneous/dataController.js
+Miscellaneous/dataRoutes.js
+Miscellaneous/database individual adding.py
+Miscellaneous/directory.png
+Miscellaneous/githubStats.js
+Miscellaneous/home-bg.jpg
+Miscellaneous/media/KartavyaSketch.jpg
+Miscellaneous/media/dataImages/BearChat-Main.png
+Miscellaneous/media/dataImages/BearChat-Main2.png
+Miscellaneous/media/dataImages/BearChat.png
+Miscellaneous/media/dataImages/BearChat2.jpeg
+Miscellaneous/media/dataImages/BearChat3.png
+Miscellaneous/media/dataImages/BearChat4.png
+Miscellaneous/media/dataImages/Cleanify-10.jpg
+Miscellaneous/media/dataImages/Cleanify-2.jpg
+Miscellaneous/media/dataImages/Cleanify-3.jpg
+Miscellaneous/media/dataImages/Cleanify-4.jpg
+Miscellaneous/media/dataImages/Cleanify-5.jpg
+Miscellaneous/media/dataImages/Cleanify-6.jpg
+Miscellaneous/media/dataImages/Cleanify-7.jpg
+Miscellaneous/media/dataImages/Cleanify-8.jpg
+Miscellaneous/media/dataImages/Cleanify-9.jpg
+Miscellaneous/media/dataImages/Cleanify.jpg
+Miscellaneous/media/dataImages/FaunaFinder-2.png
+Miscellaneous/media/dataImages/FaunaFinder-3.png
+Miscellaneous/media/dataImages/FaunaFinder-4.png
+Miscellaneous/media/dataImages/FaunaFinder-5.jpg
+Miscellaneous/media/dataImages/FaunaFinder-6.png
+Miscellaneous/media/dataImages/FaunaFinder-7.png
+Miscellaneous/media/dataImages/FaunaFinder-8.jpg
+Miscellaneous/media/dataImages/FaunaFinder.jpg
+Miscellaneous/media/dataImages/FinVest-10.jpg
+Miscellaneous/media/dataImages/FinVest-11.jpg
+Miscellaneous/media/dataImages/FinVest-12.jpg
+Miscellaneous/media/dataImages/FinVest-2.jpg
+Miscellaneous/media/dataImages/FinVest-3.jpg
+Miscellaneous/media/dataImages/FinVest-4.jpg
+Miscellaneous/media/dataImages/FinVest-5.jpg
+Miscellaneous/media/dataImages/FinVest-6.jpg
+Miscellaneous/media/dataImages/FinVest-7.jpg
+Miscellaneous/media/dataImages/FinVest-8.jpg
+Miscellaneous/media/dataImages/FinVest-9.jpg
+Miscellaneous/media/dataImages/FinVest.jpeg
+Miscellaneous/media/dataImages/HealthSphere-2.jpg
+Miscellaneous/media/dataImages/HealthSphere-3.jpg
+Miscellaneous/media/dataImages/HealthSphere-4.jpg
+Miscellaneous/media/dataImages/HealthSphere.jpeg
+Miscellaneous/media/dataImages/Kartavya-Portfolio-FARM-2.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-FARM-3.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-FARM-4.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-FARM-5.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-FARM-6.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-FARM-7.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-FARM-8.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-FARM.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-MERN-2.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-MERN-3.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-MERN-4.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-MERN-5.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-MERN-6.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-MERN-7.png
+Miscellaneous/media/dataImages/Kartavya-Portfolio-MERN.png
+Miscellaneous/media/dataImages/Kartavya_Singh-Portfolio_Website_Thumbnail-min.png
+Miscellaneous/media/dataImages/Kartavya_Singh-Portfolio_Website_Thumbnail.png
+Miscellaneous/media/dataImages/LibRestricted.png
+Miscellaneous/media/dataImages/Virtual-Office-Space-2.png
+Miscellaneous/media/dataImages/Virtual-Office-Space.png
+Miscellaneous/media/planet-1.png
+Miscellaneous/media/planet-2.png
+Miscellaneous/media/planet-3.png
+Miscellaneous/media/planet-4.png
+Miscellaneous/middlewareController.js
+Miscellaneous/mongodb.js
+Miscellaneous/navBar.css
+Miscellaneous/navbar.js
+Miscellaneous/ping.js
+Miscellaneous/server.js
+Miscellaneous/svg.py
+MyJourney.txt
+README.md
+backend/config/mongodb.js
+backend/config/openai.js
+backend/controllers/aiContextManager.js
+backend/controllers/dataController.js
+backend/controllers/imagesController.js
+backend/controllers/middlewareController.js
+backend/data/Images/compressed_images/experienceTable/Computer Science Co-op _ Council on Aging/COA-2.webp      
+backend/data/Images/compressed_images/experienceTable/Computer Science Co-op _ Council on Aging/COA-3.webp      
+backend/data/Images/compressed_images/experienceTable/Computer Science Co-op _ Council on Aging/COA.webp        
+backend/data/Images/compressed_images/experienceTable/Computer Science Co-op _ Elastic Search/Elastic-Search-2.webp
+backend/data/Images/compressed_images/experienceTable/Computer Science Co-op _ Elastic Search/Elastic-Search.webp
+backend/data/Images/compressed_images/experienceTable/Computer Science Co-op _ Proctor & Gamble/P-G-1.webp      
+backend/data/Images/compressed_images/experienceTable/Computer Science Co-op _ Proctor & Gamble/P-G-2.webp      
+backend/data/Images/compressed_images/experienceTable/Computer Science Co-op _ Proctor & Gamble/P-G-3.webp      
+backend/data/Images/compressed_images/experienceTable/Computer Science Co-op _ Proctor & Gamble/P-G.webp        
+backend/data/Images/compressed_images/experienceTable/Data Science Intern/Byte-Link-Sys.webp
+backend/data/Images/compressed_images/experienceTable/Python_Flask Application Developer/ResDash.webp
+backend/data/Images/compressed_images/experienceTable/Systems Architect & Digital Technology Director/THf-OS-Exp-2.webp
+backend/data/Images/compressed_images/experienceTable/Systems Architect & Digital Technology Director/THf-OS-Exp-3.webp
+backend/data/Images/compressed_images/experienceTable/Systems Architect & Digital Technology Director/THf-OS-Exp-4.webp
+backend/data/Images/compressed_images/experienceTable/Systems Architect & Digital Technology Director/THf-OS-Exp.webp
+backend/data/Images/compressed_images/honorsExperienceTable/COOP 1000 Course/UC-LC.webp
+backend/data/Images/compressed_images/honorsExperienceTable/Discord Bot Developer/Discord-Exp.webp
+backend/data/Images/compressed_images/involvementTable/Bearcat Tech Innovators/Bearcat-Tech-Innovators-1.webp   
+backend/data/Images/compressed_images/involvementTable/Bearcat Tech Innovators/Bearcat-Tech-Innovators-2.webp   
+backend/data/Images/compressed_images/involvementTable/Bearcat Tech Innovators/Bearcat-Tech-Innovators.webp     
+backend/data/Images/compressed_images/involvementTable/Learning Commons - SRS Leader & MASS Tutor/LC.webp       
+backend/data/Images/compressed_images/involvementTable/Learning Commons - SRS Leader & MASS Tutor/Learning-Commons-2.webp
+backend/data/Images/compressed_images/involvementTable/Learning Commons - SRS Leader & MASS Tutor/Learning-Commons.webp
+backend/data/Images/compressed_images/involvementTable/MakeUC/Cleanify.webp
+backend/data/Images/compressed_images/involvementTable/MakeUC/Fauna-Finder.webp
+backend/data/Images/compressed_images/involvementTable/MakeUC/Lib-Restricted.webp
+backend/data/Images/compressed_images/involvementTable/MakeUC/MUC.webp
+backend/data/Images/compressed_images/involvementTable/RevolutionUC/Bear-Chat-Main.webp
+backend/data/Images/compressed_images/involvementTable/RevolutionUC/Bear-Chat-Main2.webp
+backend/data/Images/compressed_images/involvementTable/RevolutionUC/Health-Sphere-4.webp
+backend/data/Images/compressed_images/involvementTable/RevolutionUC/Health-Sphere.webp
+backend/data/Images/compressed_images/involvementTable/RevolutionUC/RevUC.webp
+backend/data/Images/compressed_images/involvementTable/RevolutionUC/Virtual-Office-Space-2.webp
+backend/data/Images/compressed_images/involvementTable/RevolutionUC/Virtual-Office-Space.webp
+backend/data/Images/compressed_images/involvementTable/UC Blue Ash Admissions Office/loading-gif.webp
+backend/data/Images/compressed_images/involvementTable/University of Cincinnati RED Department/Resident-Advisor-2.webp
+backend/data/Images/compressed_images/involvementTable/University of Cincinnati RED Department/Resident-Advisor-3.webp
+backend/data/Images/compressed_images/involvementTable/University of Cincinnati RED Department/Resident-Advisor.webp
+backend/data/Images/compressed_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat-Main.webp
+backend/data/Images/compressed_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat-Main2.webp
+backend/data/Images/compressed_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat2.webp
+backend/data/Images/compressed_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat3.webp
+backend/data/Images/compressed_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat4.webp
+backend/data/Images/compressed_images/projectTable/BearChat_ YUCY AI ChatBot/BearChat.webp
+backend/data/Images/compressed_images/projectTable/Discord Bot Developer/Discord-Exp-2.webp
+backend/data/Images/compressed_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-2.webp
+backend/data/Images/compressed_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-3.webp
+backend/data/Images/compressed_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-4.webp
+backend/data/Images/compressed_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-5.webp
+backend/data/Images/compressed_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-6.webp
+backend/data/Images/compressed_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-7.webp
+backend/data/Images/compressed_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-8.webp
+backend/data/Images/compressed_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-10.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-11.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-12.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-2.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-3.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-4.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-5.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-6.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-7.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-8.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-9.webp
+backend/data/Images/compressed_images/projectTable/FinVest_ Budget Smart, Invest Sharp/FinVest.webp
+backend/data/Images/compressed_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-2.webp
+backend/data/Images/compressed_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-3.webp
+backend/data/Images/compressed_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-4.webp
+backend/data/Images/compressed_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-5.webp
+backend/data/Images/compressed_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-6.webp
+backend/data/Images/compressed_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-7.webp
+backend/data/Images/compressed_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-8.webp
+backend/data/Images/compressed_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM.webp
+backend/data/Images/compressed_images/projectTable/First Personal Portfolio Website/Portfolio.webp
+backend/data/Images/compressed_images/projectTable/HealthSphere_ Data-Driven Wellness Solutions/Health-Sphere-2.webp
+backend/data/Images/compressed_images/projectTable/HealthSphere_ Data-Driven Wellness Solutions/Health-Sphere-3.webp
+backend/data/Images/compressed_images/projectTable/HealthSphere_ Data-Driven Wellness Solutions/Health-Sphere-4.webp
+backend/data/Images/compressed_images/projectTable/HealthSphere_ Data-Driven Wellness Solutions/Health-Sphere.webp
+backend/data/Images/compressed_images/projectTable/Lift & Locate_ A Precision-Engineered Lego Robot/ENED.webp   
+backend/data/Images/compressed_images/projectTable/My AI Companion - Personal Portfolio Website/Kartavya-AI-Companion.webp
+backend/data/Images/compressed_images/projectTable/My AI Companion - Personal Portfolio Website/Kartavya-AI-Companion2.webp
+backend/data/Images/compressed_images/projectTable/My AI Companion - Personal Portfolio Website/Kartavya-AI-Companion3.webp
+backend/data/Images/compressed_images/projectTable/My AI Companion - Personal Portfolio Website/Kartavya-AI-Companion4.webp
+backend/data/Images/compressed_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-2.webp
+backend/data/Images/compressed_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-3.webp
+backend/data/Images/compressed_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-4.webp
+backend/data/Images/compressed_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-5.webp
+backend/data/Images/compressed_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-6.webp
+backend/data/Images/compressed_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-7.webp
+backend/data/Images/compressed_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN.webp
+backend/data/Images/compressed_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Singh-Portfolio-Website-Thumbnail.webp
+backend/data/Images/compressed_images/projectTable/Virtual Office Space/Virtual-Office-Space-2.webp
+backend/data/Images/compressed_images/projectTable/Virtual Office Space/Virtual-Office-Space.webp
+backend/data/Images/compressed_images/yearInReviewTable/Year-In-Review 2022 - 2023/BearChat.webp
+backend/data/Images/compressed_images/yearInReviewTable/Year-In-Review 2022 - 2023/Japanese.webp
+backend/data/Images/compressed_images/yearInReviewTable/Year-In-Review 2022 - 2023/Library.webp
+backend/data/Images/compressed_images/yearInReviewTable/Year-In-Review 2023 - 2024/Fauna-Finder.webp
+backend/data/Images/compressed_images/yearInReviewTable/Year-In-Review 2023 - 2024/Health-Sphere.webp
+backend/data/Images/compressed_images/yearInReviewTable/Year-In-Review 2023 - 2024/NRHH-Web.webp
+backend/data/Images/downloaded_images/experienceTable/Computer Science Co-op _ Council on Aging/COA-2.jpg       
+backend/data/Images/downloaded_images/experienceTable/Computer Science Co-op _ Council on Aging/COA-3.jpg       
+backend/data/Images/downloaded_images/experienceTable/Computer Science Co-op _ Council on Aging/COA.jpg
+backend/data/Images/downloaded_images/experienceTable/Computer Science Co-op _ Elastic Search/Elastic-Search-2.jpg
+backend/data/Images/downloaded_images/experienceTable/Computer Science Co-op _ Elastic Search/Elastic-Search.jpg
+backend/data/Images/downloaded_images/experienceTable/Computer Science Co-op _ Proctor & Gamble/P-G-1.jpg       
+backend/data/Images/downloaded_images/experienceTable/Computer Science Co-op _ Proctor & Gamble/P-G-2.jpg       
+backend/data/Images/downloaded_images/experienceTable/Computer Science Co-op _ Proctor & Gamble/P-G-3.jpg       
+backend/data/Images/downloaded_images/experienceTable/Computer Science Co-op _ Proctor & Gamble/P-G.jpg
+backend/data/Images/downloaded_images/experienceTable/Data Science Intern/Byte-Link-Sys.jpg
+backend/data/Images/downloaded_images/experienceTable/Python_Flask Application Developer/ResDash.png
+backend/data/Images/downloaded_images/experienceTable/Systems Architect & Digital Technology Director/THf-OS-Exp-2.jpg
+backend/data/Images/downloaded_images/experienceTable/Systems Architect & Digital Technology Director/THf-OS-Exp-3.jpg
+backend/data/Images/downloaded_images/experienceTable/Systems Architect & Digital Technology Director/THf-OS-Exp-4.jpg
+backend/data/Images/downloaded_images/experienceTable/Systems Architect & Digital Technology Director/THf-OS-Exp.jpg
+backend/data/Images/downloaded_images/honorsExperienceTable/COOP 1000 Course/UC-LC.png
+backend/data/Images/downloaded_images/honorsExperienceTable/Discord Bot Developer/Discord-Exp.png
+backend/data/Images/downloaded_images/involvementTable/Bearcat Tech Innovators/Bearcat-Tech-Innovators-1.jpg    
+backend/data/Images/downloaded_images/involvementTable/Bearcat Tech Innovators/Bearcat-Tech-Innovators-2.jpg    
+backend/data/Images/downloaded_images/involvementTable/Bearcat Tech Innovators/Bearcat-Tech-Innovators.jpg      
+backend/data/Images/downloaded_images/involvementTable/Learning Commons - SRS Leader & MASS Tutor/LC.jpg        
+backend/data/Images/downloaded_images/involvementTable/Learning Commons - SRS Leader & MASS Tutor/Learning-Commons-2.png
+backend/data/Images/downloaded_images/involvementTable/Learning Commons - SRS Leader & MASS Tutor/Learning-Commons.png
+backend/data/Images/downloaded_images/involvementTable/MakeUC/Cleanify.jpg
+backend/data/Images/downloaded_images/involvementTable/MakeUC/Fauna-Finder.jpg
+backend/data/Images/downloaded_images/involvementTable/MakeUC/Lib-Restricted.png
+backend/data/Images/downloaded_images/involvementTable/MakeUC/MUC.png
+backend/data/Images/downloaded_images/involvementTable/RevolutionUC/Bear-Chat-Main.png
+backend/data/Images/downloaded_images/involvementTable/RevolutionUC/Bear-Chat-Main2.png
+backend/data/Images/downloaded_images/involvementTable/RevolutionUC/Health-Sphere-4.jpg
+backend/data/Images/downloaded_images/involvementTable/RevolutionUC/Health-Sphere.jpg
+backend/data/Images/downloaded_images/involvementTable/RevolutionUC/RevUC.png
+backend/data/Images/downloaded_images/involvementTable/RevolutionUC/Virtual-Office-Space-2.png
+backend/data/Images/downloaded_images/involvementTable/RevolutionUC/Virtual-Office-Space.png
+backend/data/Images/downloaded_images/involvementTable/UC Blue Ash Admissions Office/loading-gif.gif
+backend/data/Images/downloaded_images/involvementTable/University of Cincinnati RED Department/Resident-Advisor-2.jpg
+backend/data/Images/downloaded_images/involvementTable/University of Cincinnati RED Department/Resident-Advisor-3.jpg
+backend/data/Images/downloaded_images/involvementTable/University of Cincinnati RED Department/Resident-Advisor.jpg
+backend/data/Images/downloaded_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat-Main.png
+backend/data/Images/downloaded_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat-Main2.png
+backend/data/Images/downloaded_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat2.png
+backend/data/Images/downloaded_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat3.png
+backend/data/Images/downloaded_images/projectTable/BearChat_ YUCY AI ChatBot/Bear-Chat4.jpg
+backend/data/Images/downloaded_images/projectTable/BearChat_ YUCY AI ChatBot/BearChat.png
+backend/data/Images/downloaded_images/projectTable/Discord Bot Developer/Discord-Exp-2.jpg
+backend/data/Images/downloaded_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-2.png
+backend/data/Images/downloaded_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-3.png
+backend/data/Images/downloaded_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-4.png
+backend/data/Images/downloaded_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-5.jpg
+backend/data/Images/downloaded_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-6.png
+backend/data/Images/downloaded_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-7.png
+backend/data/Images/downloaded_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder-8.jpg
+backend/data/Images/downloaded_images/projectTable/FaunaFinder_ AI-Powered Animal Breed Recognition/Fauna-Finder.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-10.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-11.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-12.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-2.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-3.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-4.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-5.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-6.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-7.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-8.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/Fin-Vest-9.jpg
+backend/data/Images/downloaded_images/projectTable/FinVest_ Budget Smart, Invest Sharp/FinVest.jpg
+backend/data/Images/downloaded_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-2.png
+backend/data/Images/downloaded_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-3.png
+backend/data/Images/downloaded_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-4.png
+backend/data/Images/downloaded_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-5.png
+backend/data/Images/downloaded_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-6.png
+backend/data/Images/downloaded_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-7.png
+backend/data/Images/downloaded_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM-8.png
+backend/data/Images/downloaded_images/projectTable/First Personal Portfolio Website/Kartavya-Portfolio-FARM.png 
+backend/data/Images/downloaded_images/projectTable/First Personal Portfolio Website/Portfolio.png
+backend/data/Images/downloaded_images/projectTable/HealthSphere_ Data-Driven Wellness Solutions/Health-Sphere-2.jpg
+backend/data/Images/downloaded_images/projectTable/HealthSphere_ Data-Driven Wellness Solutions/Health-Sphere-3.jpg
+backend/data/Images/downloaded_images/projectTable/HealthSphere_ Data-Driven Wellness Solutions/Health-Sphere-4.jpg
+backend/data/Images/downloaded_images/projectTable/HealthSphere_ Data-Driven Wellness Solutions/Health-Sphere.jpg
+backend/data/Images/downloaded_images/projectTable/Lift & Locate_ A Precision-Engineered Lego Robot/ENED.png    
+backend/data/Images/downloaded_images/projectTable/My AI Companion - Personal Portfolio Website/Kartavya-AI-Companion.png
+backend/data/Images/downloaded_images/projectTable/My AI Companion - Personal Portfolio Website/Kartavya-AI-Companion2.png
+backend/data/Images/downloaded_images/projectTable/My AI Companion - Personal Portfolio Website/Kartavya-AI-Companion3.png
+backend/data/Images/downloaded_images/projectTable/My AI Companion - Personal Portfolio Website/Kartavya-AI-Companion4.png
+backend/data/Images/downloaded_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-2.png
+backend/data/Images/downloaded_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-3.png
+backend/data/Images/downloaded_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-4.png
+backend/data/Images/downloaded_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-5.png
+backend/data/Images/downloaded_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-6.png
+backend/data/Images/downloaded_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN-7.png
+backend/data/Images/downloaded_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Portfolio-MERN.png
+backend/data/Images/downloaded_images/projectTable/Personal MERN Stack Portfolio Website/Kartavya-Singh-Portfolio-Website-Thumbnail.png
+backend/data/Images/downloaded_images/projectTable/Virtual Office Space/Virtual-Office-Space-2.png
+backend/data/Images/downloaded_images/projectTable/Virtual Office Space/Virtual-Office-Space.png
+backend/data/Images/downloaded_images/yearInReviewTable/Year-In-Review 2022 - 2023/BearChat.png
+backend/data/Images/downloaded_images/yearInReviewTable/Year-In-Review 2022 - 2023/Japanese.jpg
+backend/data/Images/downloaded_images/yearInReviewTable/Year-In-Review 2022 - 2023/Library.png
+backend/data/Images/downloaded_images/yearInReviewTable/Year-In-Review 2023 - 2024/Fauna-Finder.jpg
+backend/data/Images/downloaded_images/yearInReviewTable/Year-In-Review 2023 - 2024/Health-Sphere.jpg
+backend/data/Images/downloaded_images/yearInReviewTable/Year-In-Review 2023 - 2024/NRHH-Web.jpg
+backend/data/ImagesToCompress/CompressedImages/user-icon.webp
+backend/data/ImagesToCompress/ImagesToCompress/Kartavya-Profile-Photo.jpg
+backend/data/ImagesToCompress/ImagesToCompress/Kartavya.jpg
+backend/data/ImagesToCompress/ImagesToCompress/contact-bg.png
+backend/data/ImagesToCompress/ImagesToCompress/home-bg.jpg
+backend/data/ImagesToCompress/ImagesToCompress/system-user.jpg
+backend/data/ImagesToCompress/ImagesToCompress/user-icon.png
+backend/data/ImagesToCompress/ImagesToCompress/user-icon.svg
+backend/data/Singh_Kartavya_Resume2025.pdf
+backend/data/Singh_Kartavya_Resume2026.pdf
+backend/package-lock.json
+backend/package.json
+backend/routes/aiRoutes.js
+backend/routes/dataRoutes.js
+backend/routes/imagesRoutes.js
+backend/server.js
+frontend/.gitignore
+frontend/README.md
+frontend/obfuscator.config.json
+frontend/package-lock.json
+frontend/package.json
+frontend/public/Kartavya-Profile-Photo.webp
+frontend/public/Kartavya.webp
+frontend/public/contact-bg.webp
+frontend/public/favicon.gif
+frontend/public/favicon.ico
+frontend/public/home-bg.webp
+frontend/public/index.html
+frontend/public/robots.txt
+frontend/public/system-user.webp
+frontend/public/user-icon.png
+frontend/public/user-icon.svg
+frontend/src/App.css
+frontend/src/App.js
+frontend/src/assets/Singh_Kartavya_Resume2024.pdf
+frontend/src/assets/Singh_Kartavya_Resume2025.pdf
+frontend/src/assets/Singh_Kartavya_Resume2026.pdf
+frontend/src/assets/font/Montserrat-Bold.ttf
+frontend/src/assets/font/Montserrat-Medium.ttf
+frontend/src/assets/font/Montserrat-Regular.ttf
+frontend/src/assets/img/icons/MenuIcon.svg
+frontend/src/assets/img/icons/aichat.png
+frontend/src/assets/img/icons/aichat.svg
+frontend/src/assets/img/icons/angular.svg
+frontend/src/assets/img/icons/arabic.png
+frontend/src/assets/img/icons/arrow1.svg
+frontend/src/assets/img/icons/arrow2.svg
+frontend/src/assets/img/icons/c.svg
+frontend/src/assets/img/icons/calender.png
+frontend/src/assets/img/icons/cpp.svg
+frontend/src/assets/img/icons/css.svg
+frontend/src/assets/img/icons/d3.svg
+frontend/src/assets/img/icons/deeplearning.svg
+frontend/src/assets/img/icons/devpost.png
+frontend/src/assets/img/icons/discord.png
+frontend/src/assets/img/icons/discord.svg
+frontend/src/assets/img/icons/django.svg
+frontend/src/assets/img/icons/dsa.svg
+frontend/src/assets/img/icons/email.png
+frontend/src/assets/img/icons/english.svg
+frontend/src/assets/img/icons/express.svg
+frontend/src/assets/img/icons/flask.svg
+frontend/src/assets/img/icons/framermotion.svg
+frontend/src/assets/img/icons/french.svg
+frontend/src/assets/img/icons/github.png
+frontend/src/assets/img/icons/github.svg
+frontend/src/assets/img/icons/go.svg
+frontend/src/assets/img/icons/hindi.svg
+frontend/src/assets/img/icons/hive.svg
+frontend/src/assets/img/icons/html.svg
+frontend/src/assets/img/icons/instagram.png
+frontend/src/assets/img/icons/japanese.svg
+frontend/src/assets/img/icons/java.svg
+frontend/src/assets/img/icons/javascript.svg
+frontend/src/assets/img/icons/jquery.svg
+frontend/src/assets/img/icons/kali.svg
+frontend/src/assets/img/icons/labview.jpg
+frontend/src/assets/img/icons/linkedin.png
+frontend/src/assets/img/icons/links.png
+frontend/src/assets/img/icons/linux.svg
+frontend/src/assets/img/icons/logisticregression.svg
+frontend/src/assets/img/icons/machinelearning.svg
+frontend/src/assets/img/icons/macos.svg
+frontend/src/assets/img/icons/matplotlib.svg
+frontend/src/assets/img/icons/mongodb.svg
+frontend/src/assets/img/icons/ms_office.svg
+frontend/src/assets/img/icons/net.svg
+frontend/src/assets/img/icons/neuralnetwork.svg
+frontend/src/assets/img/icons/nodejs.svg
+frontend/src/assets/img/icons/numpy.svg
+frontend/src/assets/img/icons/pandas.svg
+frontend/src/assets/img/icons/powerbi.svg
+frontend/src/assets/img/icons/pyspark.svg
+frontend/src/assets/img/icons/python.svg
+frontend/src/assets/img/icons/react.svg
+frontend/src/assets/img/icons/selenium.svg
+frontend/src/assets/img/icons/sklearn.svg
+frontend/src/assets/img/icons/sql.svg
+frontend/src/assets/img/icons/swift.svg
+frontend/src/assets/img/icons/tableau.svg
+frontend/src/assets/img/icons/tensorflow.svg
+frontend/src/assets/img/icons/tensorflow2.svg
+frontend/src/assets/img/icons/typescript.svg
+frontend/src/assets/img/icons/unity.svg
+frontend/src/assets/img/icons/vanillajs.svg
+frontend/src/assets/img/icons/vuejs.svg
+frontend/src/assets/img/icons/web.png
+frontend/src/assets/img/icons/web.svg
+frontend/src/assets/img/icons/window.svg
+frontend/src/assets/img/icons/windows.svg
+frontend/src/assets/img/icons/xml.svg
+frontend/src/assets/img/icons/youtube.png
+frontend/src/assets/img/icons/youtube.svg
+frontend/src/components/AboutPage/AboutPage.js
+frontend/src/components/AboutPage/SpotlightBG.js
+frontend/src/components/ContactPage/ContactPage.js
+frontend/src/components/ExperiencePage/Background.js
+frontend/src/components/ExperiencePage/CareerTabPage.js
+frontend/src/components/ExperiencePage/ExperiencePage.js
+frontend/src/components/ExperiencePage/HonorsTabPage.js
+frontend/src/components/ExperiencePage/InvolvementTabPage.js
+frontend/src/components/HomePage/HomePage.js
+frontend/src/components/ProjectPage/GradientBG.js
+frontend/src/components/ProjectPage/ProjectPage.js
+frontend/src/components/ProjectPage/ProjectsListView.js
+frontend/src/components/SkillPage/SkillBG.js
+frontend/src/components/SkillPage/SkillGraph.js
+frontend/src/components/SkillPage/SkillPage.js
+frontend/src/components/SkillPage/SkillSection.js
+frontend/src/components/SpecialComponents/AdminConsole.js
+frontend/src/components/SpecialComponents/DevMode.js
+frontend/src/components/SpecialComponents/Footer.js
+frontend/src/components/SpecialComponents/LikeButton.js
+frontend/src/components/SpecialComponents/Links.js
+frontend/src/components/SpecialComponents/Loading.js
+frontend/src/components/SpecialComponents/NavBar.js
+frontend/src/components/SpecialComponents/PowerMode.js
+frontend/src/components/WindowModal/AIChatTab.js
+frontend/src/components/WindowModal/AdminTab.js
+frontend/src/components/WindowModal/ExperienceTab.js
+frontend/src/components/WindowModal/FeedTab.js
+frontend/src/components/WindowModal/HonorsTab.js
+frontend/src/components/WindowModal/ImageCarousel.js
+frontend/src/components/WindowModal/InvolvementTab.js
+frontend/src/components/WindowModal/ProjectTab.js
+frontend/src/components/WindowModal/WindowModal.js
+frontend/src/components/WindowModal/YearInReviewTab.js
+frontend/src/hooks/useSpeechInput.js
+frontend/src/index.css
+frontend/src/index.js
+frontend/src/services/eventListenerRegistry.js
+frontend/src/services/experienceService.js
+frontend/src/services/honorsExperienceService.js
+frontend/src/services/icons.js
+frontend/src/services/involvementService.js
+frontend/src/services/ping.js
+frontend/src/services/projectService.js
+frontend/src/services/skillComponentService.js
+frontend/src/services/skillService.js
+frontend/src/services/variants.js
+frontend/src/services/yearInReviewService.js
+frontend/src/styles/AIChatBot.css
+frontend/src/styles/AboutPage.css
+frontend/src/styles/AdminConsole.css
+frontend/src/styles/AdminTab.css
+frontend/src/styles/ContactPage.css
+frontend/src/styles/ExperiencePage.css
+frontend/src/styles/FeedTab.css
+frontend/src/styles/Footer.css
+frontend/src/styles/HomePage.css
+frontend/src/styles/LikeButton.css
+frontend/src/styles/Links.css
+frontend/src/styles/Loading.css
+frontend/src/styles/NavBar.css
+frontend/src/styles/PowerMode.css
+frontend/src/styles/ProjectPage.css
+frontend/src/styles/ProjectTab.css
+frontend/src/styles/ProjectsListView.css
+frontend/src/styles/SkillPage.css
+frontend/src/styles/SkillSection.css
+frontend/src/styles/SkilllGraph.css
+frontend/src/styles/WindowModal.css
+pricing.txt
+PS D:\Desktop\All Projects\Kartavya-Portfolio-MERN> 

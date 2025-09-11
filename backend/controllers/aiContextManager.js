@@ -46,7 +46,7 @@ const SEARCH_INDEX_DEF = {
 // Path to your resume PDF in data/
 const resumeFilePath = path.join(
   __dirname,
-  "../data/Singh_Kartavya_Resume2025.pdf"
+  "../data/Singh_Kartavya_Resume2026.pdf"
 );
 
 // In-memory caches

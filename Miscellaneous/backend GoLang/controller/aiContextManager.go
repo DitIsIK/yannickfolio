@@ -23,9 +23,9 @@ var resumeTerms = []string{"education", "experience", "skills", "projects", "hon
 
 // In-memory caches for context snapshots
 var contextMeta = struct {
-	DbContextLastUpdate      string `bson:"dbContextLastUpdate,omitempty"`
-	GithubContextLastUpdate  string `bson:"githubContextLastUpdate,omitempty"`
-	ResumeContextLastUpdate  string `bson:"resumeContextLastUpdate,omitempty"`
+	DbContextLastUpdate     string `bson:"dbContextLastUpdate,omitempty"`
+	GithubContextLastUpdate string `bson:"githubContextLastUpdate,omitempty"`
+	ResumeContextLastUpdate string `bson:"resumeContextLastUpdate,omitempty"`
 }{}
 var memoryIndexMeta = struct {
 	LastUpdate string `bson:"lastUpdate,omitempty"`
@@ -33,11 +33,12 @@ var memoryIndexMeta = struct {
 
 // MemoryIndex and context data
 type MemoryItem struct {
-	Category string
-	Text     string
+	Category  string
+	Text      string
 	Embedding []float32
-	Norm     float64
+	Norm      float64
 }
+
 var memoryIndex []MemoryItem
 
 // Initialize AI context: load context meta, ensure snapshots are up to date, build memory index.
@@ -109,7 +110,9 @@ func saveContextMeta(ctx context.Context) {
 // loadMemoryIndexMeta loads memoryIndexMeta document from DB.
 func loadMemoryIndexMeta(ctx context.Context) {
 	db := config.GetDBAI()
-	var doc struct{ LastUpdate string `bson:"lastUpdate"` }
+	var doc struct {
+		LastUpdate string `bson:"lastUpdate"`
+	}
 	_ = db.Collection("memoryIndexMeta").FindOne(ctx, bson.M{"_id": "memoryIndexMeta"}).Decode(&doc)
 	memoryIndexMeta.LastUpdate = doc.LastUpdate
 }
@@ -139,7 +142,7 @@ func updateDbContextFile(ctx context.Context) error {
 	dbPrimary := config.GetDB()
 	// Fetch data from each collection, excluding certain fields
 	collections := []struct {
-		Name      string
+		Name       string
 		Projection bson.M
 	}{
 		{"experienceTable", bson.M{"_id": 0, "experienceLink": 0, "experienceURLs": 0, "likesCount": 0, "experienceImages": 0}},
@@ -195,15 +198,15 @@ func updateGithubContextFile(ctx context.Context) error {
 	out := make([]map[string]interface{}, 0, len(repos))
 	for _, r := range repos {
 		info := map[string]interface{}{
-			"name":        r.Name,
-			"full_name":   r.FullName,
-			"description": strings.TrimSpace(r.Description),
-			"html_url":    r.HTMLURL,
-			"language":    r.Language,
-			"visibility":  ifThenElse(r.Private, "private", "public"),
-			"created_at":  r.CreatedAt,
-			"updated_at":  r.UpdatedAt,
-			"pushed_at":   r.PushedAt,
+			"name":             r.Name,
+			"full_name":        r.FullName,
+			"description":      strings.TrimSpace(r.Description),
+			"html_url":         r.HTMLURL,
+			"language":         r.Language,
+			"visibility":       ifThenElse(r.Private, "private", "public"),
+			"created_at":       r.CreatedAt,
+			"updated_at":       r.UpdatedAt,
+			"pushed_at":        r.PushedAt,
 			"stargazers_count": r.StargazersCount,
 			"forks_count":      r.ForksCount,
 		}
@@ -244,7 +247,7 @@ func updateGithubContextFile(ctx context.Context) error {
 
 // updateResumeContextFile parses the resume PDF text and stores snapshot in AI DB.
 func updateResumeContextFile(ctx context.Context) error {
-	resumeText := parseResumePDF()  // (Assume we have a function to read "data/Singh_Kartavya_Resume2025.pdf" and return its text)
+	resumeText := parseResumePDF() // (Assume we have a function to read "data/Singh_Kartavya_Resume2026.pdf" and return its text)
 	snapshot := map[string]string{"resume_text": strings.TrimSpace(resumeText)}
 	dbAI := config.GetDBAI()
 	_, err := dbAI.Collection("resumeContexts").UpdateOne(ctx,
@@ -484,9 +487,9 @@ func buildMemoryIndex(ctx context.Context, forceRebuild bool) error {
 			return err
 		}
 		var docs []struct {
-			Category  string             `bson:"category"`
-			Text      string             `bson:"text"`
-			Embedding primitive.A        `bson:"embedding"`
+			Category  string      `bson:"category"`
+			Text      string      `bson:"text"`
+			Embedding primitive.A `bson:"embedding"`
 		}
 		if err = cur.All(ctx, &docs); err != nil {
 			return err
@@ -509,7 +512,7 @@ func buildMemoryIndex(ctx context.Context, forceRebuild bool) error {
 			norm := 0.0
 			if sum > 0 {
 				norm = float64(fmt.Sprintf("%.6f", sum)) // just to restrict precision
-				norm = sum // fix: actual sqrt for norm
+				norm = sum                               // fix: actual sqrt for norm
 			}
 			norm = sqrt(sum) // conceptually
 			memoryIndex = append(memoryIndex, MemoryItem{Category: doc.Category, Text: doc.Text, Embedding: vec, Norm: norm})
@@ -544,7 +547,7 @@ func buildMemoryIndex(ctx context.Context, forceRebuild bool) error {
 		norm := 0.0
 		if sum > 0 {
 			norm = float64(sum) // actual sqrt omitted for brevity
-			norm = sum // fix: actual sqrt for norm
+			norm = sum          // fix: actual sqrt for norm
 		}
 		norm = sqrt(sum)
 		// Prepare document for DB
@@ -573,13 +576,19 @@ func buildMemoryIndex(ctx context.Context, forceRebuild bool) error {
 }
 
 // semanticSearchWithAtlas performs a vector similarity search per category using Atlas Search (if available).
-func semanticSearchWithAtlas(ctx context.Context, queryEmbedding []float32, topK map[string]int) ([]struct{ Category, Text string; Score float64 }, error) {
+func semanticSearchWithAtlas(ctx context.Context, queryEmbedding []float32, topK map[string]int) ([]struct {
+	Category, Text string
+	Score          float64
+}, error) {
 	db := config.GetDBAI()
 	type resultHit struct {
 		Text  string  `bson:"text"`
 		Score float64 `bson:"score"`
 	}
-	results := []struct{ Category, Text string; Score float64 }{}
+	results := []struct {
+		Category, Text string
+		Score          float64
+	}{}
 	// We'll do separate aggregate for each category possibly concurrently
 	var mu sync.Mutex
 	var wg sync.WaitGroup
@@ -591,11 +600,11 @@ func semanticSearchWithAtlas(ctx context.Context, queryEmbedding []float32, topK
 			filter := bson.M{"path": "category", "query": category}
 			vectorStage := bson.M{
 				"$vectorSearch": bson.M{
-					"index":      "chunkEmbeddingsIndex",
+					"index":       "chunkEmbeddingsIndex",
 					"queryVector": queryEmbedding,
-					"path":       "embedding",
-					"filter":     bson.M{"term": bson.M{"path": "category", "query": category}},
-					"k":          k,
+					"path":        "embedding",
+					"filter":      bson.M{"term": bson.M{"path": "category", "query": category}},
+					"k":           k,
 				},
 			}
 			projectStage := bson.M{
@@ -716,7 +725,7 @@ Rewrite the user's query according to the above rules, output only the optimized
 	resp, err := config.OpenAIClient.CreateChatCompletion(context.Background(), openai.ChatCompletionRequest{
 		Model:       "gpt-4.1-nano",
 		Messages:    messages,
-		MaxTokens:   int(float64(len(userQuery))/2 * 2), // approximate max tokens double the query length
+		MaxTokens:   int(float64(len(userQuery)) / 2 * 2), // approximate max tokens double the query length
 		Temperature: 0.3,
 	})
 	if err != nil {
@@ -962,7 +971,7 @@ You are Kartavya Singh (He/Him), a 4th-year CS student. Answer strictly based on
 			{Role: "system", Content: systemPrompt},
 			{Role: "user", Content: userPrompt},
 		},
-		MaxTokens: 400,
+		MaxTokens:   400,
 		Temperature: 0.3,
 	})
 	if err != nil {
@@ -996,7 +1005,7 @@ Based on this exchange, suggest three follow-up questions the user might ask nex
 			{Role: "user", Content: userContent},
 		},
 		Temperature: 0.6,
-		MaxTokens: 100,
+		MaxTokens:   100,
 	})
 	if err != nil {
 		return nil, err
@@ -1042,7 +1051,7 @@ Rules:
 			{Role: "user", Content: userContent},
 		},
 		Temperature: 0.2,
-		MaxTokens: 150,
+		MaxTokens:   150,
 	})
 	if err != nil {
 		return "", err
@@ -1146,7 +1155,10 @@ func containsString(slice []string, str string) bool {
 	}
 	return false
 }
-func extractTopItems(arr []struct{ Item *MemoryItem; Score, WeightedScore float64 }, n int) []MemoryItem {
+func extractTopItems(arr []struct {
+	Item                 *MemoryItem
+	Score, WeightedScore float64
+}, n int) []MemoryItem {
 	out := []MemoryItem{}
 	if n > len(arr) {
 		n = len(arr)
