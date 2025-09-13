@@ -41,6 +41,8 @@ backend/.cache/
 # Production files
 .env.production
 .env.local
+.github
+.cursorrules
 
 # Build artifacts
 .parcel-cache/
