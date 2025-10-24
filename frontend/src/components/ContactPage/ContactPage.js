@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { zoomIn, fadeIn } from "../../services/variants";
+import { fadeIn } from "../../services/variants";
 import { motion, AnimatePresence } from "framer-motion";
-import { styled, keyframes } from "@stitches/react";
+import { styled } from "@stitches/react";
 import Footer from "../SpecialComponents/Footer";
 import emailjs from "@emailjs/browser";
 import siteData from "../../data/site";
@@ -11,7 +11,6 @@ import "../../styles/ContactPage.css";
 function ContactPage({ isBatterySavingOn, addTab }) {
   const form = useRef();
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const [isSent, setIsSent] = useState(null); // null for no status, true for success, false for error
   const containerRef = useRef(null);
   // 1. Disable state and Toast state
   const [isDisabled, setIsDisabled] = useState(false);
@@ -349,7 +348,7 @@ function ContactPage({ isBatterySavingOn, addTab }) {
                   <StyledButton type="submit" disabled={isDisabled}>
                     <ButtonShadow />
                     <ButtonEdge />
-                    <ButtonLabel isSent={isSent}>
+                    <ButtonLabel>
                       {/* {isSent === true
                         ? "Message Sent ☑"
                         : isSent === false
@@ -370,18 +369,6 @@ function ContactPage({ isBatterySavingOn, addTab }) {
 }
 
 export default ContactPage;
-
-const fillGreen = keyframes({
-  "0%": { backgroundColor: "#edeeef", color: "#212529" }, // Initial yellow color
-  "50%": { backgroundColor: "lightseagreen", color: "#212529" }, // Success green with white text
-  "100%": { backgroundColor: "#edeeef", color: "#212529" },
-});
-
-const fillRed = keyframes({
-  "0%": { backgroundColor: "#edeeef", color: "#212529" }, // Initial yellow color
-  "50%": { backgroundColor: "lightcoral", color: "#212529" }, // Error red with white text
-  "100%": { backgroundColor: "#edeeef", color: "#212529" }, // Initial yellow color
-});
 
 // Styled Components for Button Parts
 const ButtonPart = styled("span", {
@@ -409,7 +396,7 @@ const ButtonEdge = styled(ButtonPart, {
     )`,
 });
 
-// Label inside the button, with conditional background based on isSent state
+// Label inside the button
 const ButtonLabel = styled("span", {
   fontFamily: "Montserrat",
   fontSize: "18px",
@@ -424,18 +411,6 @@ const ButtonLabel = styled("span", {
   userSelect: "none",
   transition:
     "transform 250ms ease-out, background-color 0.3s ease, color 0.3s ease",
-
-  // Conditional animation based on isSent state
-  variants: {
-    isSent: {
-      true: {
-        animation: `${fillGreen}  3s ease-in-out forwards`, // Apply green fill on success
-      },
-      false: {
-        animation: `${fillRed}  3s ease-in-out forwards`, // Apply red fill on error
-      },
-    },
-  },
 
   "&:hover": {
     backgroundColor: "#fcbc1d",

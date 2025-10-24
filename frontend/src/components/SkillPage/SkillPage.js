@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import { zoomIn, fadeIn } from "../../services/variants";
 import "../../styles/SkillPage.css";
 import github from "../../assets/img/icons/github.png";
-import SkillBG from "./SkillBG.js";
 import SkillGraphCarousel from "./SkillGraph";
 import SkillSection from "./SkillSection";
 import { fetchSkillsComponents } from "../../services/skillComponentService";
@@ -17,7 +16,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Register necessary components for Chart.js
 ChartJS.register(
@@ -140,7 +139,6 @@ const BarChart = ({ topLangs, isBatterySavingOn }) => {
 };
 
 function SkillPage({ isBatterySavingOn, isWindowModalVisible }) {
-  const [skillScreenWidth, setSkillScreenWidth] = useState(window.innerWidth);
   const [topLangs, setTopLangs] = useState(siteData.skills.topLangs);
   const [skills, setSkills] = useState(siteData.skills.graphs);
   const githubProfileUrl = `https://github.com/${siteData.owner.githubUsername}`;
@@ -374,14 +372,6 @@ function SkillPage({ isBatterySavingOn, isWindowModalVisible }) {
     updateScale();
     window.addEventListener("resize", updateScale);
     return () => window.removeEventListener("resize", updateScale);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setSkillScreenWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (

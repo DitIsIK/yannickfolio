@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { fadeIn } from "../../services/variants";
 import "../../styles/NavBar.css";
 import siteData from "../../data/site";
 import withPublicPath from "../../utils/publicPath";

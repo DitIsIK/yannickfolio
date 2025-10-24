@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { zoomIn, fadeIn } from "../../services/variants";
 import icons from "../../services/icons";
 import Glide from "@glidejs/glide";
@@ -147,7 +147,6 @@ const proficiencyColor = {
 
 const SkillSection = ({ isBatterySavingOn }) => {
   const glideRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [isMediumWidth, setIsMediumWidth] = useState(
     window.innerWidth <= 992 && window.innerWidth > 768
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { zoomIn, fadeIn } from "../../services/variants";
 import { styled } from "@stitches/react";

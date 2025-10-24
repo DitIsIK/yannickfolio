@@ -4,13 +4,7 @@ import { styled } from "@stitches/react";
 import { TypeAnimation } from "react-type-animation";
 // import { Parallax } from "react-parallax";
 import { useSpring, animated } from "@react-spring/web";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-  delay,
-} from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { zoomIn } from "../../services/variants";
 import "../../styles/HomePage.css";
 // import ProfilePhoto from withPublicPath("Kartavya.webp");

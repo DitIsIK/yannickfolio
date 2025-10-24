@@ -1,5 +1,43 @@
 import React, { useEffect, useRef, useState } from "react";
 
+const GRADIENT_STOPS = [
+  { offset: 0, color: [255, 111, 97] }, // Coral
+  { offset: 0.2, color: [244, 208, 63] }, // Yellow
+  { offset: 0.4, color: [142, 68, 173] }, // Purple
+  { offset: 0.6, color: [26, 188, 156] }, // Aqua
+  { offset: 0.8, color: [52, 152, 219] }, // Blue
+  { offset: 1, color: [255, 111, 97] }, // Loop back to Coral
+];
+
+const getGlobalGradientColor = (t, opacity) => {
+  t = Math.min(Math.max(t, 0), 1);
+  let startStop;
+  let endStop;
+  for (let i = 0; i < GRADIENT_STOPS.length - 1; i++) {
+    if (t >= GRADIENT_STOPS[i].offset && t <= GRADIENT_STOPS[i + 1].offset) {
+      startStop = GRADIENT_STOPS[i];
+      endStop = GRADIENT_STOPS[i + 1];
+      break;
+    }
+  }
+  if (!startStop || !endStop) {
+    const col = GRADIENT_STOPS[GRADIENT_STOPS.length - 1].color;
+    return `rgba(${col[0]}, ${col[1]}, ${col[2]}, ${opacity})`;
+  }
+  const range = endStop.offset - startStop.offset;
+  const localT = range === 0 ? 0 : (t - startStop.offset) / range;
+  const r = Math.round(
+    startStop.color[0] + localT * (endStop.color[0] - startStop.color[0])
+  );
+  const g = Math.round(
+    startStop.color[1] + localT * (endStop.color[1] - startStop.color[1])
+  );
+  const b = Math.round(
+    startStop.color[2] + localT * (endStop.color[2] - startStop.color[2])
+  );
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+};
+
 export const SpotlightBG = () => {
   const isTouchDevice =
     "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -17,45 +55,6 @@ export const SpotlightBG = () => {
   useEffect(() => {
     clickCountRef.current = clickCount;
   }, [clickCount]);
-
-  // Global gradient stops
-  const gradientStops = [
-    { offset: 0, color: [255, 111, 97] }, // Coral
-    { offset: 0.2, color: [244, 208, 63] }, // Yellow
-    { offset: 0.4, color: [142, 68, 173] }, // Purple
-    { offset: 0.6, color: [26, 188, 156] }, // Aqua
-    { offset: 0.8, color: [52, 152, 219] }, // Blue
-    { offset: 1, color: [255, 111, 97] }, // Loop back to Coral
-  ];
-
-  // Compute global gradient color at normalized position t with the given opacity.
-  const getGlobalGradientColor = (t, opacity) => {
-    t = Math.min(Math.max(t, 0), 1);
-    let startStop, endStop;
-    for (let i = 0; i < gradientStops.length - 1; i++) {
-      if (t >= gradientStops[i].offset && t <= gradientStops[i + 1].offset) {
-        startStop = gradientStops[i];
-        endStop = gradientStops[i + 1];
-        break;
-      }
-    }
-    if (!startStop || !endStop) {
-      const col = gradientStops[gradientStops.length - 1].color;
-      return `rgba(${col[0]}, ${col[1]}, ${col[2]}, ${opacity})`;
-    }
-    const range = endStop.offset - startStop.offset;
-    const localT = range === 0 ? 0 : (t - startStop.offset) / range;
-    const r = Math.round(
-      startStop.color[0] + localT * (endStop.color[0] - startStop.color[0])
-    );
-    const g = Math.round(
-      startStop.color[1] + localT * (endStop.color[1] - startStop.color[1])
-    );
-    const b = Math.round(
-      startStop.color[2] + localT * (endStop.color[2] - startStop.color[2])
-    );
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -230,7 +229,7 @@ export const SpotlightBG = () => {
         window.removeEventListener("click", handleMouseClick);
       }
     };
-  }, []);
+  }, [isTouchDevice]);
 
   return (
     <canvas

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { FaCrown } from "react-icons/fa";
 import { zoomIn } from "../../services/variants";
 import { styled } from "@stitches/react";
 import { fetchProjects } from "../../services/projectService";

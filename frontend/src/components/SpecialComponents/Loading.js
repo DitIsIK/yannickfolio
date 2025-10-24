@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "../../styles/Loading.css";
-import { pingBackend, pingDatabase } from "../../services/ping";
+import { pingDatabase } from "../../services/ping";
 
 const greetings = ["Hello", "नमस्ते", "Bonjour", "こんにちは", "مرحبا"];
 
@@ -140,12 +140,6 @@ const Loading = ({ isBatterySavingOn, setIsBatterySavingOn, onComplete }) => {
       const lowMemoryDevice = deviceMemory !== "Unknown" && deviceMemory < 4;
       const isTouchDevice =
         "ontouchstart" in window || navigator.maxTouchPoints > 0;
-      const isSavingMode =
-        prefersReducedMotion ||
-        isLowBattery ||
-        lowPerformanceDevice ||
-        isCpuThrottled ||
-        lowMemoryDevice;
       setStats({
         prefersReducedMotion,
         isLowBattery,
