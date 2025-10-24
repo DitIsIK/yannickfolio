@@ -1,27 +1,29 @@
-import axios from "axios";
+import siteData from "../data/site";
 
-const API_URL = `${process.env.REACT_APP_API_URI}`;
+const basePublicUrl = process.env.PUBLIC_URL || "";
 
-// Fetch all experiences
+const withPublicUrl = (paths = []) =>
+  (paths || []).map((path) => `${basePublicUrl}${path}`);
+
+const withSlug = (title) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
 export const fetchExperiences = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/getexperiences`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching experiences:", error);
-    throw error;
-  }
+  return siteData.experience.career.map((experience) => ({
+    ...experience,
+    experienceLink:
+      experience.experienceLink || withSlug(experience.experienceTitle),
+    experienceImages: withPublicUrl(experience.experienceImages),
+  }));
 };
 
-// Fetch a specific experience by experienceLink
 export const fetchExperienceByLink = async (experienceLink) => {
-  try {
-    const response = await axios.get(
-      `${API_URL}/getexperiences/${experienceLink}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching experience by link:", error);
-    throw error;
-  }
+  const experience = (await fetchExperiences()).find(
+    (item) => item.experienceLink === experienceLink
+  );
+
+  return experience || null;
 };

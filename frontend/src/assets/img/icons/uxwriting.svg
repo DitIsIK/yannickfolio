@@ -1,0 +1,5 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="12" fill="#0f172a" />
+  <path d="M20 20h24v6H20zm0 10h24v6H20zm0 10h18v6H20z" fill="#f8fafc" />
+  <text x="50%" y="55" text-anchor="middle" font-family="'Montserrat', 'Arial', sans-serif" font-size="10" letter-spacing="1" fill="#38bdf8">UX</text>
+</svg>

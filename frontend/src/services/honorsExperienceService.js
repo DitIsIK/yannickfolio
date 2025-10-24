@@ -1,27 +1,29 @@
-import axios from "axios";
+import siteData from "../data/site";
 
-const API_URL = `${process.env.REACT_APP_API_URI}`;
+const basePublicUrl = process.env.PUBLIC_URL || "";
 
-// Fetch all Honors Experiences
+const withPublicUrl = (paths = []) =>
+  (paths || []).map((path) => `${basePublicUrl}${path}`);
+
+const withSlug = (title) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
 export const fetchHonorsExperiences = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/gethonorsexperiences`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching Honors Experiences:", error);
-    throw error;
-  }
+  return siteData.experience.honors.map((honor) => ({
+    ...honor,
+    honorsExperienceLink:
+      honor.honorsExperienceLink || withSlug(honor.honorsExperienceTitle),
+    honorsExperienceImages: withPublicUrl(honor.honorsExperienceImages),
+  }));
 };
 
-// Fetch a specific Honors Experience by honorsExperienceLink
 export const fetchHonorsExperienceByLink = async (honorsExperienceLink) => {
-  try {
-    const response = await axios.get(
-      `${API_URL}/gethonorsexperiences/${honorsExperienceLink}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching Honors Experience by link:", error);
-    throw error;
-  }
+  const honor = (await fetchHonorsExperiences()).find(
+    (item) => item.honorsExperienceLink === honorsExperienceLink
+  );
+
+  return honor || null;
 };

@@ -5,27 +5,14 @@ import { styled } from "@stitches/react";
 import "../../styles/AboutPage.css";
 import { SpotlightBG } from "./SpotlightBG";
 // import AboutImg from "../../../public/Kartavya-Profile-Photo.webp";
-import Resume from "../../assets/Singh_Kartavya_Resume2026.pdf";
+import siteData from "../../data/site";
 
-const aboutData = [
-  {
-    icon: "bx bxs-hourglass about-icon",
-    title: "Coding Hours",
-    subtitle: "1300+ Hours",
-  },
-  {
-    icon: "bx bx-trophy about-icon",
-    title: "Completed",
-    subtitle: "42+ Projects",
-  },
-  {
-    icon: "bx bx-support about-icon",
-    title: "LeetCode",
-    subtitle: "246+ Solutions",
-  },
-];
+const aboutStats = siteData.about.stats;
 
 function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
+  const resumeHref = `${process.env.PUBLIC_URL}${siteData.hero.secondaryCta.href}`;
+  const aiCompanionTitle = `${siteData.owner.name}'s AI Companion`;
+  const feedTitle = `${siteData.owner.name}'s Feed`;
   useEffect(() => {
     const updateScale = () => {
       const aboutDiv = document.querySelector(".about-content");
@@ -75,9 +62,12 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
           <div className="about-container">
             <motion.div className="about-row">
               <motion.img
-                src={`${process.env.PUBLIC_URL}/Kartavya-Profile-Photo.webp`}
+                src={`${process.env.PUBLIC_URL}${siteData.about.profileImage}`}
                 className="about-image"
-                alt="Profile"
+                alt={`${siteData.owner.name} portret`}
+                width={360}
+                height={360}
+                loading="lazy"
                 variants={isBatterySavingOn ? {} : fadeIn("right", 200, 0)}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
@@ -92,7 +82,7 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
                 whileInView="show"
                 exit="hidden"
               >
-                {aboutData.map((item, index) => (
+                {aboutStats.map((item, index) => (
                   <motion.div
                     className="about-box"
                     whileHover={{ scale: 1.1 }}
@@ -114,19 +104,33 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
                 whileInView="show"
                 exit="hidden"
               >
-                <span className="about-name">Kartavya Singh</span>
-                <p className="about-role">
-                  UC '26, B.S & M.Eng in Computer Science, Full Stack Software
-                  Developer
+                <span className="about-name">{siteData.owner.name}</span>
+                <p className="about-role">{siteData.owner.tagline}</p>
+                <p className="about-description">
+                  {siteData.owner.bioShort}
                 </p>
                 <p className="about-description">
-                  I'm Kartavya Singh, a Computer Science senior at the
-                  University of Cincinnati, passionate about creating impactful
-                  AI solutions, experienced in Full Stack Development. My
-                  journey is driven by curiosity and a commitment to continuous
-                  learning through hackathons, personal projects, and real-world
-                  applications.
+                  {siteData.owner.bioLong}
                 </p>
+                <div className="about-contact">
+                  <p>
+                    <strong>Locatie:</strong> {siteData.owner.location}
+                  </p>
+                  <p>
+                    <strong>Email:</strong>{" "}
+                    <a href={`mailto:${siteData.owner.email}`}>
+                      {siteData.owner.email}
+                    </a>
+                  </p>
+                </div>
+                <div className="about-now">
+                  <h4>Nu bezig met</h4>
+                  <ul>
+                    {siteData.about.now.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
               </motion.div>
               <motion.h2
                 className="about-page-subtitle"
@@ -165,21 +169,21 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
                   >
                     <ButtonShadow />
                     <ButtonEdge />
-                    <ButtonLabel>Projects</ButtonLabel>
+                    <ButtonLabel>Projecten</ButtonLabel>
                   </StyledButton>
                 </motion.a>
                 <motion.a
-                  href={Resume}
-                  download="Kartavya-Singh-Resume-2026.pdf"
+                  href={resumeHref}
+                  download="Yannick_Deetman_CV.pdf"
                   className="download-cv"
                   style={{ userSelect: "none" }}
                   draggable={false}
                   onDragStart={(e) => e.preventDefault()}
                 >
-                  <StyledButton>
+                  <StyledButton as="span">
                     <ButtonShadow />
                     <ButtonEdge />
-                    <ButtonLabel>Resume</ButtonLabel>
+                    <ButtonLabel>{siteData.hero.secondaryCta.label}</ButtonLabel>
                   </StyledButton>
                 </motion.a>
               </motion.div>
@@ -199,14 +203,14 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
                   >
                     <ButtonShadow />
                     <ButtonEdge />
-                    <ButtonLabel>Experience</ButtonLabel>
+                    <ButtonLabel>Ervaring</ButtonLabel>
                   </StyledButton>
                 </motion.a>
                 <motion.a>
                   <StyledButton
                     onClick={(e) => {
                       e.preventDefault();
-                      addTab("FeedTab", { title: "Kartavya's Feed" });
+                      addTab("FeedTab", { title: feedTitle });
                     }}
                   >
                     <ButtonShadow />
@@ -218,7 +222,7 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
                   <StyledButton
                     onClick={(e) => {
                       e.preventDefault();
-                      addTab("AIChatTab", { title: "Kartavya's AI Companion" });
+                      addTab("AIChatTab", { title: aiCompanionTitle });
                     }}
                   >
                     <ButtonShadow />

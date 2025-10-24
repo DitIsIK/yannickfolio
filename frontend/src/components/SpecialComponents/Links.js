@@ -3,48 +3,23 @@ import { motion, AnimatePresence } from "framer-motion";
 // import { zoomIn } from "../../services/variants";
 import "../../styles/Links.css";
 import { animated } from "@react-spring/web";
+import siteData from "../../data/site";
 
 const Links = ({ isBatterySavingOn, isWindowModalVisible }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const linksData = [
-    {
-      href: "https://github.com/Kartavya904",
-      icon: require("../../assets/img/icons/github.png"),
-      label: "GitHub",
-    },
-    {
-      href: "https://devpost.com/Kartavya904",
-      icon: require("../../assets/img/icons/devpost.png"),
-      label: "DevPost",
-    },
-    {
-      href: "https://www.linkedin.com/in/kartavya-singh-singhk6",
-      icon: require("../../assets/img/icons/linkedin.png"),
-      label: "LinkedIn",
-    },
-    {
-      href: "https://www.instagram.com/kartavya1710/",
-      icon: require("../../assets/img/icons/instagram.png"),
-      label: "Instagram",
-    },
-    {
-      href: "https://discordapp.com/users/439541365580365835",
-      icon: require("../../assets/img/icons/discord.png"),
-      label: "Discord",
-    },
-    {
-      href: "https://calendly.com/singhk6/book-time-with-kartavya",
-      icon: require("../../assets/img/icons/calender.png"),
-      label: "Book Time with Kartavya",
-    },
-    {
-      href: "mailto:singhk6@mail.uc.edu",
-      icon: require("../../assets/img/icons/email.png"),
-      label: "Email",
-    },
-  ];
+  const iconMap = {
+    GitHub: require("../../assets/img/icons/github.png"),
+    LinkedIn: require("../../assets/img/icons/linkedin.png"),
+    Email: require("../../assets/img/icons/email.png"),
+    Letterboxd: require("../../assets/img/icons/film.svg"),
+  };
+
+  const linksData = siteData.owner.socials.map((social) => ({
+    ...social,
+    icon: iconMap[social.label] || require("../../assets/img/icons/links.png"),
+  }));
 
   const handleOutsideClick = (e) => {
     if (menuRef.current && !menuRef.current.contains(e.target)) {

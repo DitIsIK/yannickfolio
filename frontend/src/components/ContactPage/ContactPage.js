@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { styled, keyframes } from "@stitches/react";
 import Footer from "../SpecialComponents/Footer";
 import emailjs from "@emailjs/browser";
+import siteData from "../../data/site";
 import "../../styles/ContactPage.css";
 
 function ContactPage({ isBatterySavingOn, addTab }) {
@@ -14,6 +15,9 @@ function ContactPage({ isBatterySavingOn, addTab }) {
   // 1. Disable state and Toast state
   const [isDisabled, setIsDisabled] = useState(false);
   const [toasts, setToasts] = useState([]);
+  const letterboxdHandle = siteData.owner.letterboxdUrl
+    ? siteData.owner.letterboxdUrl.split("/").filter(Boolean).pop()
+    : "Letterboxd";
 
   const addToast = (message, type) => {
     const id = Date.now();
@@ -143,12 +147,8 @@ function ContactPage({ isBatterySavingOn, addTab }) {
                 }
               >
                 Email:{" "}
-                <a href="mailto:singhk6@mail.uc.edu" className="lead">
-                  singhk6@mail.uc.edu
-                </a>{" "}
-                ||{" "}
-                <a href="mailto:kartavya.singh17@yahoo.com" className="lead">
-                  kartavya.singh17@yahoo.com
+                <a href={siteData.contact.socials.email} className="lead">
+                  {siteData.contact.email}
                 </a>
               </motion.h5>
               <motion.h5
@@ -159,10 +159,45 @@ function ContactPage({ isBatterySavingOn, addTab }) {
                   isBatterySavingOn ? {} : { delay: 0, type: "spring" }
                 }
               >
-                Phone:{" "}
-                <a href="tel:5138377683" className="lead">
-                  513-837-7683
+                LinkedIn:{" "}
+                <a
+                  href={siteData.contact.socials.linkedin}
+                  className="lead"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {siteData.owner.name}
                 </a>
+                {"  |  "}
+                GitHub:{" "}
+                <a
+                  href={siteData.contact.socials.github}
+                  className="lead"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {siteData.owner.githubUsername}
+                </a>
+                {"  |  "}
+                Letterboxd:{" "}
+                <a
+                  href={siteData.contact.socials.letterboxd}
+                  className="lead"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {letterboxdHandle}
+                </a>
+              </motion.h5>
+              <motion.h5
+                className="contact-info"
+                initial={isBatterySavingOn ? {} : { opacity: 0, scale: 0 }}
+                whileInView={isBatterySavingOn ? {} : { opacity: 1, scale: 1 }}
+                transition={
+                  isBatterySavingOn ? {} : { delay: 0, type: "spring" }
+                }
+              >
+                Locatie: {siteData.contact.location}
               </motion.h5>
               <br />
               <motion.h5
