@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import Resume from "../../assets/Singh_Kartavya_Resume2026.pdf";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../services/variants";
 import "../../styles/NavBar.css";
+import siteData from "../../data/site";
 
 const NavBar = ({ isBatterySavingOn, addTab }) => {
   const [activeLink, setActiveLink] = useState("home");
@@ -214,7 +214,7 @@ const NavBar = ({ isBatterySavingOn, addTab }) => {
             // }
           }}
         >
-          <b>Kartavya Singh</b>
+          <b>{siteData.owner.name}</b>
         </motion.a>
 
         {/* Toggle button for menu */}
@@ -375,7 +375,9 @@ const NavBar = ({ isBatterySavingOn, addTab }) => {
                 className={"navbar-link"}
                 onClick={(e) => {
                   e.preventDefault();
-                  addTab("FeedTab", { title: "Kartavya's Feed" });
+                  addTab("FeedTab", {
+                    title: `${siteData.owner.name}'s Feed`,
+                  });
                   setMenuOpen(false);
                 }}
               >
@@ -388,14 +390,14 @@ const NavBar = ({ isBatterySavingOn, addTab }) => {
               whileTap={screenWidth > 992 ? { scale: 0.9, rotate: 2 } : {}}
             >
               <a
-                download="Kartavya-Singh-Resume-2026.pdf"
-                href={Resume}
+                download="Yannick_Deetman_CV.pdf"
+                href={`${process.env.PUBLIC_URL}${siteData.hero.secondaryCta.href}`}
                 className="navbar-link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <span className="navbar-text">
-                  <i className="fa fa-file-pdf-o"></i> RESUME
+                  <i className="fa fa-file-pdf-o"></i> CV
                 </span>
               </a>
             </motion.li>
@@ -409,7 +411,9 @@ const NavBar = ({ isBatterySavingOn, addTab }) => {
                 className={"navbar-link ai-chat-nav"}
                 onClick={(e) => {
                   e.preventDefault();
-                  addTab("AIChatTab", { title: "Kartavya's AI Companion" });
+                  addTab("AIChatTab", {
+                    title: `${siteData.owner.name}'s AI Companion`,
+                  });
                   setMenuOpen(false);
                 }}
               >

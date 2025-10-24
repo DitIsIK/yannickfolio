@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Sympafix Spijkerwijzer mockup</title>
+  <desc id="desc">Illustratieve kaart met UI elementen voor de Sympafix Spijkerwijzer tool.</desc>
+  <rect width="1200" height="630" rx="48" fill="#0f172a" />
+  <rect x="120" y="100" width="960" height="440" rx="32" fill="#10b981" />
+  <g font-family="'Inter', 'Arial', sans-serif" fill="#0f172a">
+    <text x="600" y="200" font-size="52" font-weight="700" text-anchor="middle">Sympafix Spijkerwijzer</text>
+    <text x="600" y="248" font-size="28" text-anchor="middle">Zero-dependency, snelle load</text>
+    <text x="600" y="292" font-size="24" text-anchor="middle">Heldere states en kleurgebruik</text>
+  </g>
+  <g font-family="'Fira Code', 'Courier New', monospace" font-size="24" fill="#064e3b">
+    <text x="200" y="360">if (compatibel) { status = "groen" }</text>
+    <text x="200" y="404">else { status = "oranje" }</text>
+    <text x="200" y="448">deploy("Netlify")</text>
+  </g>
+</svg>

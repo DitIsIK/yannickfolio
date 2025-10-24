@@ -174,6 +174,28 @@
   justify-content: space-evenly;
 }
 
+.home-summary {
+  max-width: min(640px, 90%);
+  margin: 1rem auto 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #edeeef;
+  text-align: center;
+}
+
+.home-cta-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.home-cta-group a {
+  text-decoration: none;
+}
+
 .profile-picture {
   background-clip: content-box;
   width: 250px !important;

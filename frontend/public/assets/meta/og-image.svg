@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Yannick Deetman portfolio kaart</title>
+  <desc id="desc">Open Graph afbeelding met naam, tagline en kleuren van Yannick Deetman.</desc>
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fcbc1d" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="56" fill="url(#gradient)" />
+  <g font-family="'Montserrat', 'Arial', sans-serif" fill="#0f172a">
+    <text x="120" y="210" font-size="64" font-weight="700">Yannick Deetman</text>
+    <text x="120" y="280" font-size="32">Communicatiestudent (HvA), vibecoding front end, fotografie</text>
+  </g>
+  <g font-family="'Fira Code', 'Courier New', monospace" font-size="24" fill="#0f172a">
+    <text x="120" y="360">const focus = ["Communicatie", "UX writing", "Fotografie"];</text>
+    <text x="120" y="400">const tools = ["React", "Tailwind", "Notion", "Netlify"];</text>
+  </g>
+</svg>
