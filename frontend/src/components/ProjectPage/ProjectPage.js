@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { zoomIn } from "../../services/variants";
-import { styled, keyframes } from "@stitches/react";
+import { styled } from "@stitches/react";
 import "../../styles/ProjectPage.css";
-import GradientBG from "./GradientBG"; // Adjust the path as necessary
 import ProjectsListView from "./ProjectsListView";
 
 function ProjectPage({ addTab, isBatterySavingOn, isWindowModalVisible }) {
-  const [showFeatured, setShowFeatured] = useState(false);
+  const showFeatured = false;
   return (
     <motion.section className="project-page-container" id="projects">
       {/* <div className="gradient-bg-container">

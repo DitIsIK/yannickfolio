@@ -44,7 +44,13 @@ const CustomArrow = ({ direction, onClick, imgSrc, label }) => {
       onClick={handleClick}
       aria-label={label}
     >
-      <img src={imgSrc} alt={`${label} Arrow`} />
+      <img
+        src={imgSrc}
+        alt={`${label} Arrow`}
+        width={32}
+        height={32}
+        loading="lazy"
+      />
     </button>
   );
 };
@@ -210,8 +216,15 @@ const HonorsTabPage = ({ addTab, isBatterySavingOn }) => {
                               ? data.honorsExperienceImages[0]
                               : data.yearInReviewImages[0]
                           }
-                          alt=""
+                          alt={
+                            type === "honor"
+                              ? data.honorsExperienceTitle
+                              : data.yearInReviewTitle
+                          }
                           className="career-image-content"
+                          loading="lazy"
+                          width={360}
+                          height={240}
                         />
                       </div>
                       <div className="career-details">

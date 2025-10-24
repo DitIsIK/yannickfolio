@@ -2,10 +2,10 @@ import { React, useState, useEffect } from "react";
 import { zoomIn, fadeIn } from "../../services/variants";
 import "../../styles/SkillPage.css";
 import github from "../../assets/img/icons/github.png";
-import SkillBG from "./SkillBG.js";
 import SkillGraphCarousel from "./SkillGraph";
 import SkillSection from "./SkillSection";
 import { fetchSkillsComponents } from "../../services/skillComponentService";
+import siteData from "../../data/site";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -16,7 +16,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Register necessary components for Chart.js
 ChartJS.register(
@@ -139,9 +139,9 @@ const BarChart = ({ topLangs, isBatterySavingOn }) => {
 };
 
 function SkillPage({ isBatterySavingOn, isWindowModalVisible }) {
-  const [skillScreenWidth, setSkillScreenWidth] = useState(window.innerWidth);
-  const [topLangs, setTopLangs] = useState({ labels: [], data: [] });
-  const [skills, setSkills] = useState([]);
+  const [topLangs, setTopLangs] = useState(siteData.skills.topLangs);
+  const [skills, setSkills] = useState(siteData.skills.graphs);
+  const githubProfileUrl = `https://github.com/${siteData.owner.githubUsername}`;
 
   useEffect(() => {
     const loadSkills = async () => {
@@ -374,14 +374,6 @@ function SkillPage({ isBatterySavingOn, isWindowModalVisible }) {
     return () => window.removeEventListener("resize", updateScale);
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setSkillScreenWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <section
       className="skill-container"
@@ -433,6 +425,36 @@ function SkillPage({ isBatterySavingOn, isWindowModalVisible }) {
             >
               <SkillSection isBatterySavingOn={isBatterySavingOn} />
             </motion.div>
+            <motion.div
+              className="skill-badge-wrapper"
+              variants={isBatterySavingOn ? {} : zoomIn(0)}
+              initial="hidden"
+              whileInView="show"
+              exit="hidden"
+            >
+              <div className="skill-badge-column">
+                <h3>Hoofdskills</h3>
+                <p className="skill-paragraph note">
+                  {siteData.skills.primaryNote}
+                </p>
+                <ul className="skill-badge-list">
+                  {siteData.skills.primary.map((skill) => (
+                    <li key={skill}>{skill}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="skill-badge-column">
+                <h3>Tools &amp; extras</h3>
+                <p className="skill-paragraph note">
+                  {siteData.skills.secondaryNote}
+                </p>
+                <ul className="skill-badge-list">
+                  {siteData.skills.secondary.map((skill) => (
+                    <li key={skill}>{skill}</li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
             <motion.p
               className="skill-paragraph"
               variants={isBatterySavingOn ? {} : fadeIn("right", 200, 0)}
@@ -445,12 +467,18 @@ function SkillPage({ isBatterySavingOn, isWindowModalVisible }) {
             <motion.div className="last-skill-row">
               <motion.div className="last-skill-column column1">
                 <a
-                  href="https://github.com/Kartavya904/#topLang"
+                  href={githubProfileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="github-icon"
                 >
-                  <img src={github} alt="GitHub" />
+                  <img
+                    src={github}
+                    alt="GitHub"
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                  />
                 </a>
 
                 <BarChart

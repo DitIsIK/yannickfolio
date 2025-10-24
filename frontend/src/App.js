@@ -14,6 +14,7 @@ import ProjectPage from "./components/ProjectPage/ProjectPage";
 import ContactPage from "./components/ContactPage/ContactPage";
 import WindowModal from "./components/WindowModal/WindowModal";
 import PowerMode from "./components/SpecialComponents/PowerMode";
+import siteData from "./data/site";
 // import { cleanupEventListeners } from "./services/eventListenerRegistry";
 
 function App({ isBatterySavingOn, setIsBatterySavingOn }) {
@@ -39,16 +40,6 @@ function App({ isBatterySavingOn, setIsBatterySavingOn }) {
   const [errorMsg, setErrorMsg] = useState("");
   const [queriesSent, setQueriesSent] = useState(0);
   const cancelRef = useRef(false);
-
-  const [showChatTip, setShowChatTip] = useState(() => {
-    // hide forever if user previously closed
-    return localStorage.getItem("hideAIChatTip") !== "true";
-  });
-
-  const dismissChatTip = () => {
-    setShowChatTip(false);
-    localStorage.setItem("hideAIChatTip", "true");
-  };
 
   // useEffect(() => {
   //   const cleanupInterval = setInterval(() => {
@@ -143,13 +134,6 @@ function App({ isBatterySavingOn, setIsBatterySavingOn }) {
     });
 
     setIsClosed(false);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
 
   // add this at the top of your component file
@@ -319,7 +303,15 @@ function App({ isBatterySavingOn, setIsBatterySavingOn }) {
         setQuery("");
       }
     },
-    [chatStarted, conversationMemory, delay, queriesSent]
+    [
+      API_URL,
+      MAX_QUERIES,
+      TYPING_DELAY,
+      chatStarted,
+      conversationMemory,
+      delay,
+      queriesSent,
+    ]
   );
 
   // --- Stop generation handler ---
@@ -439,7 +431,9 @@ function App({ isBatterySavingOn, setIsBatterySavingOn }) {
             <motion.div
               className={`ai-chat-btn`}
               onClick={() => {
-                addTab("AIChatTab", { title: "Kartavya's AI Companion" });
+                addTab("AIChatTab", {
+                  title: `${siteData.owner.name}'s AI Companion`,
+                });
               }}
               title="Links"
               initial={isBatterySavingOn ? {} : { opacity: 0, scale: 0 }}

@@ -10,13 +10,6 @@ function parseColorString(colorString) {
 }
 
 /**
- * Convert the color object { r, g, b, a } to a string "rgba(r, g, b, a)".
- */
-function toRgbaString({ r, g, b, a }) {
-  return `rgba(${r}, ${g}, ${b}, ${a})`;
-}
-
-/**
  * Darken a given color by subtracting a fixed amount from each channel.
  */
 function darkenColor(color, amount) {
@@ -93,18 +86,21 @@ export default function GradientBG({
   );
 
   // Define circle animations and properties.
-  const circles = [
-    // first: 30s → 22.5s
-    { color: firstColor, anim: "vertical", durationMs: 22500 },
-    // second: 20s → 15s
-    { color: secondColor, anim: "circularReverse", durationMs: 15000 },
-    // third: 40s → 30s
-    { color: thirdColor, anim: "circular", durationMs: 30000 },
-    // fourth: 40s → 30s
-    { color: fourthColor, anim: "horizontal", durationMs: 30000 },
-    // fifth: 20s → 15s
-    { color: fifthColor, anim: "circular", durationMs: 15000 },
-  ];
+  const circles = useMemo(
+    () => [
+      // first: 30s → 22.5s
+      { color: firstColor, anim: "vertical", durationMs: 22500 },
+      // second: 20s → 15s
+      { color: secondColor, anim: "circularReverse", durationMs: 15000 },
+      // third: 40s → 30s
+      { color: thirdColor, anim: "circular", durationMs: 30000 },
+      // fourth: 40s → 30s
+      { color: fourthColor, anim: "horizontal", durationMs: 30000 },
+      // fifth: 20s → 15s
+      { color: fifthColor, anim: "circular", durationMs: 15000 },
+    ],
+    [firstColor, secondColor, thirdColor, fourthColor, fifthColor]
+  );
 
   // Utility: Check if a pointer is inside the canvas.
   const isPointerInsideCanvas = (x, y, canvas) => {
@@ -278,13 +274,9 @@ export default function GradientBG({
       cancelAnimationFrame(animationFrameId);
     };
   }, [
+    circles,
     gradientBackgroundStart,
     gradientBackgroundEnd,
-    firstColor,
-    secondColor,
-    thirdColor,
-    fourthColor,
-    fifthColor,
     pointerColor,
     blendingValue,
     fractionSize,

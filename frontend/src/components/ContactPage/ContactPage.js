@@ -1,19 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
-import { zoomIn, fadeIn } from "../../services/variants";
+import { fadeIn } from "../../services/variants";
 import { motion, AnimatePresence } from "framer-motion";
-import { styled, keyframes } from "@stitches/react";
+import { styled } from "@stitches/react";
 import Footer from "../SpecialComponents/Footer";
 import emailjs from "@emailjs/browser";
+import siteData from "../../data/site";
+import withPublicPath from "../../utils/publicPath";
 import "../../styles/ContactPage.css";
 
 function ContactPage({ isBatterySavingOn, addTab }) {
   const form = useRef();
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const [isSent, setIsSent] = useState(null); // null for no status, true for success, false for error
   const containerRef = useRef(null);
   // 1. Disable state and Toast state
   const [isDisabled, setIsDisabled] = useState(false);
   const [toasts, setToasts] = useState([]);
+  const letterboxdHandle = siteData.owner.letterboxdUrl
+    ? siteData.owner.letterboxdUrl.split("/").filter(Boolean).pop()
+    : "Letterboxd";
 
   const addToast = (message, type) => {
     const id = Date.now();
@@ -88,6 +92,8 @@ function ContactPage({ isBatterySavingOn, addTab }) {
     return () => window.removeEventListener("resize", updateScale);
   }, []);
 
+  const contactBackgroundImage = withPublicPath("contact-bg.webp");
+
   return (
     <>
       <AnimatePresence>
@@ -115,7 +121,7 @@ function ContactPage({ isBatterySavingOn, addTab }) {
           className="contact-page"
           ref={containerRef}
           style={{
-            backgroundImage: `url('${process.env.PUBLIC_URL}/contact-bg.webp')`,
+            backgroundImage: `url('${contactBackgroundImage}')`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
@@ -143,12 +149,8 @@ function ContactPage({ isBatterySavingOn, addTab }) {
                 }
               >
                 Email:{" "}
-                <a href="mailto:singhk6@mail.uc.edu" className="lead">
-                  singhk6@mail.uc.edu
-                </a>{" "}
-                ||{" "}
-                <a href="mailto:kartavya.singh17@yahoo.com" className="lead">
-                  kartavya.singh17@yahoo.com
+                <a href={siteData.contact.socials.email} className="lead">
+                  {siteData.contact.email}
                 </a>
               </motion.h5>
               <motion.h5
@@ -159,10 +161,45 @@ function ContactPage({ isBatterySavingOn, addTab }) {
                   isBatterySavingOn ? {} : { delay: 0, type: "spring" }
                 }
               >
-                Phone:{" "}
-                <a href="tel:5138377683" className="lead">
-                  513-837-7683
+                LinkedIn:{" "}
+                <a
+                  href={siteData.contact.socials.linkedin}
+                  className="lead"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {siteData.owner.name}
                 </a>
+                {"  |  "}
+                GitHub:{" "}
+                <a
+                  href={siteData.contact.socials.github}
+                  className="lead"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {siteData.owner.githubUsername}
+                </a>
+                {"  |  "}
+                Letterboxd:{" "}
+                <a
+                  href={siteData.contact.socials.letterboxd}
+                  className="lead"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {letterboxdHandle}
+                </a>
+              </motion.h5>
+              <motion.h5
+                className="contact-info"
+                initial={isBatterySavingOn ? {} : { opacity: 0, scale: 0 }}
+                whileInView={isBatterySavingOn ? {} : { opacity: 1, scale: 1 }}
+                transition={
+                  isBatterySavingOn ? {} : { delay: 0, type: "spring" }
+                }
+              >
+                Locatie: {siteData.contact.location}
               </motion.h5>
               <br />
               <motion.h5
@@ -311,7 +348,7 @@ function ContactPage({ isBatterySavingOn, addTab }) {
                   <StyledButton type="submit" disabled={isDisabled}>
                     <ButtonShadow />
                     <ButtonEdge />
-                    <ButtonLabel isSent={isSent}>
+                    <ButtonLabel>
                       {/* {isSent === true
                         ? "Message Sent ☑"
                         : isSent === false
@@ -332,18 +369,6 @@ function ContactPage({ isBatterySavingOn, addTab }) {
 }
 
 export default ContactPage;
-
-const fillGreen = keyframes({
-  "0%": { backgroundColor: "#edeeef", color: "#212529" }, // Initial yellow color
-  "50%": { backgroundColor: "lightseagreen", color: "#212529" }, // Success green with white text
-  "100%": { backgroundColor: "#edeeef", color: "#212529" },
-});
-
-const fillRed = keyframes({
-  "0%": { backgroundColor: "#edeeef", color: "#212529" }, // Initial yellow color
-  "50%": { backgroundColor: "lightcoral", color: "#212529" }, // Error red with white text
-  "100%": { backgroundColor: "#edeeef", color: "#212529" }, // Initial yellow color
-});
 
 // Styled Components for Button Parts
 const ButtonPart = styled("span", {
@@ -371,7 +396,7 @@ const ButtonEdge = styled(ButtonPart, {
     )`,
 });
 
-// Label inside the button, with conditional background based on isSent state
+// Label inside the button
 const ButtonLabel = styled("span", {
   fontFamily: "Montserrat",
   fontSize: "18px",
@@ -386,18 +411,6 @@ const ButtonLabel = styled("span", {
   userSelect: "none",
   transition:
     "transform 250ms ease-out, background-color 0.3s ease, color 0.3s ease",
-
-  // Conditional animation based on isSent state
-  variants: {
-    isSent: {
-      true: {
-        animation: `${fillGreen}  3s ease-in-out forwards`, // Apply green fill on success
-      },
-      false: {
-        animation: `${fillRed}  3s ease-in-out forwards`, // Apply red fill on error
-      },
-    },
-  },
 
   "&:hover": {
     backgroundColor: "#fcbc1d",

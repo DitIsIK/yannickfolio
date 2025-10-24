@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { zoomIn } from "../../services/variants";
-import Background from "./Background";
 import InvolvementTabPage from "./InvolvementTabPage";
 import CareerTabPage from "./CareerTabPage";
 import HonorsTabPage from "./HonorsTabPage";
@@ -35,27 +34,6 @@ const scrollToSection = (id) => {
     top: offsetPosition,
     behavior: "smooth",
   });
-};
-
-const tabHighlightVariants = {
-  initial: (currentIndex) => ({
-    x: `${currentIndex * 12}px`,
-    width: 0,
-    opacity: 0,
-    scale: 0,
-    transition: { duration: 0.3 },
-  }),
-  animate: (targetIndex) => ({
-    x: `${targetIndex * 120}px`,
-    opacity: 1,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 500,
-      damping: 40,
-      duration: 0.3,
-    },
-  }),
 };
 
 const ExperiencePage = ({

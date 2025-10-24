@@ -155,7 +155,15 @@ const WindowModal = ({
       // Cleanup event listeners
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [modalRef, setIsMinimized]);
+  }, [
+    modalRef,
+    setChatHistory,
+    setChatStarted,
+    setConversationMemory,
+    setFollowUpSuggestions,
+    setIsMinimized,
+    stopGenerating,
+  ]);
 
   useEffect(() => {
     const modalElement = document.querySelector(".window-modal");
@@ -307,7 +315,7 @@ const WindowModal = ({
       setIsMinimized(false);
       setIsClosed(false);
     }
-  }, [tabs]);
+  }, [isMinimized, setIsClosed, setIsMinimized, setLastActiveIndex, tabs]);
 
   useEffect(() => {
     const updateScale = () => {

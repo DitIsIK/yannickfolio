@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { zoomIn, fadeIn } from "../../services/variants";
 import icons from "../../services/icons";
 import Glide from "@glidejs/glide";
@@ -12,13 +12,25 @@ import RightArrow from "../../assets/img/icons/arrow2.svg";
 
 const CustomLeftArrow = ({ onClick }) => (
   <button className="custom-arrow custom-left-arrow" onClick={onClick}>
-    <img src={LeftArrow} alt="Left Arrow" />
+    <img
+      src={LeftArrow}
+      alt="Left Arrow"
+      width={32}
+      height={32}
+      loading="lazy"
+    />
   </button>
 );
 
 const CustomRightArrow = ({ onClick }) => (
   <button className="custom-arrow custom-right-arrow" onClick={onClick}>
-    <img src={RightArrow} alt="Right Arrow" />
+    <img
+      src={RightArrow}
+      alt="Right Arrow"
+      width={32}
+      height={32}
+      loading="lazy"
+    />
   </button>
 );
 
@@ -135,7 +147,6 @@ const proficiencyColor = {
 
 const SkillSection = ({ isBatterySavingOn }) => {
   const glideRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [isMediumWidth, setIsMediumWidth] = useState(
     window.innerWidth <= 992 && window.innerWidth > 768
   );

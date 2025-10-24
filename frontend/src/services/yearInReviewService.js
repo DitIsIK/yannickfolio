@@ -1,27 +1,25 @@
-import axios from "axios";
+import siteData from "../data/site";
+import { withPublicPaths } from "../utils/publicPath";
 
-const API_URL = `${process.env.REACT_APP_API_URI}`;
+const withSlug = (title) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
-// Fetch all Year In Reviews
 export const fetchYearInReviews = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/getyearinreviews`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching Year In Reviews:", error);
-    throw error;
-  }
+  return siteData.experience.yearInReview.map((review) => ({
+    ...review,
+    yearInReviewLink:
+      review.yearInReviewLink || withSlug(review.yearInReviewTitle),
+    yearInReviewImages: withPublicPaths(review.yearInReviewImages),
+  }));
 };
 
-// Fetch a specific Year In Review by yearInReviewLink
 export const fetchYearInReviewByLink = async (yearInReviewLink) => {
-  try {
-    const response = await axios.get(
-      `${API_URL}/getyearinreviews/${yearInReviewLink}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching Year In Review by link:", error);
-    throw error;
-  }
+  const review = (await fetchYearInReviews()).find(
+    (item) => item.yearInReviewLink === yearInReviewLink
+  );
+
+  return review || null;
 };

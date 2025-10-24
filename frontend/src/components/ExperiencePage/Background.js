@@ -169,13 +169,6 @@ const Background = () => {
       movePointer(event.clientX, event.clientY);
     };
 
-    const onTouchMove = (event) => {
-      // If you want to disable star movement on touches entirely,
-      // simply do nothing here, or omit the event listener.
-      // touchInput = true;
-      // movePointer(event.touches[0].clientX, event.touches[0].clientY);
-    };
-
     const onMouseLeave = () => {
       pointerX = window.innerWidth / 2;
       pointerY = window.innerHeight / 2;
@@ -193,8 +186,7 @@ const Background = () => {
       window.addEventListener("mouseleave", onMouseLeave);
     } else {
       // If you prefer to still have a background “shift” on touch,
-      // uncomment the next line. But per your request, we skip it:
-      // window.addEventListener("touchmove", onTouchMove, { passive: true });
+      // attach a touch handler here.
     }
 
     return () => {
@@ -204,7 +196,7 @@ const Background = () => {
         window.removeEventListener("mousemove", onMouseMove);
         window.removeEventListener("mouseleave", onMouseLeave);
       } else {
-        // window.removeEventListener("touchmove", onTouchMove);
+        // Clean up any touch handlers added above.
       }
     };
   }, []);

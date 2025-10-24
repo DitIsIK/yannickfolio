@@ -11,7 +11,9 @@ const ExperienceTab = ({ data, isBatterySavingOn }) => {
   const renderLogos = (urls) => {
     if (!urls) return null; // Check if URLs exist
 
-    return Object.entries(urls).map(([key, value]) => {
+    return Object.entries(urls)
+      .filter(([, value]) => Boolean(value))
+      .map(([key, value]) => {
       const iconName = getIconForLink(value);
       return (
         <motion.a
@@ -158,7 +160,8 @@ const ExperienceTab = ({ data, isBatterySavingOn }) => {
             </motion.h4>
           )}
 
-          {data.experienceURLs.length > 0 && (
+          {data.experienceURLs &&
+            Object.keys(data.experienceURLs).length > 0 && (
             <motion.div
               className="project-window-urls"
               initial={isBatterySavingOn ? {} : { opacity: 0, scale: 0 }}

@@ -1,25 +1,18 @@
-import axios from "axios";
+import siteData from "../data/site";
+import { withPublicPaths } from "../utils/publicPath";
 
-const API_URL = `${process.env.REACT_APP_API_URI}`;
-
-// Fetch all projects
 export const fetchProjects = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/getprojects`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-    throw error;
-  }
+  return siteData.projects.map((project) => ({
+    ...project,
+    projectImages: withPublicPaths(project.projectImages),
+  }));
 };
 
-// Fetch a specific project by projectLink
 export const fetchProjectByLink = async (projectLink) => {
-  try {
-    const response = await axios.get(`${API_URL}/getprojects/${projectLink}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching project by link:", error);
-    throw error;
-  }
+  const project = siteData.projects.find(
+    (item) => item.projectLink === projectLink
+  );
+  return project
+    ? { ...project, projectImages: withPublicPaths(project.projectImages) }
+    : null;
 };

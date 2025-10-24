@@ -4,9 +4,10 @@ import { useSpeechInput } from "../../hooks/useSpeechInput";
 import { useSpring, animated } from "@react-spring/web";
 import ReactMarkdown from "react-markdown";
 // import remarkGfm from "remark-gfm";
-import { scale, zoomIn } from "../../services/variants";
+import { zoomIn } from "../../services/variants";
 import { motion } from "framer-motion";
 import "../../styles/AIChatBot.css";
+import withPublicPath from "../../utils/publicPath";
 
 const TOAST_THRESHOLD = 5;
 
@@ -42,11 +43,9 @@ const AIChatBot = ({
   stopGenerating,
 }) => {
   const [hasSavedChat, setHasSavedChat] = useState(false);
-  const [spoken, setSpoken] = useState(false);
   const { listening, supported, permission, start, stop } = useSpeechInput({
     onResult: (transcript, isFinal) => {
       if (isFinal) {
-        setSpoken(true);
         // append final transcript onto existing query
         setQuery((q) => q + " " + transcript);
         setInterimQuery("");
@@ -56,6 +55,8 @@ const AIChatBot = ({
     },
   });
   const micDisabled = !supported || permission === "denied";
+  const systemAvatar = withPublicPath("system-user.webp");
+  const userAvatar = withPublicPath("user-icon.svg");
   // ── AUDIO PLAYBACK STATE ───────────────────────────────────────
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [audioPaused, setAudioPaused] = useState(false);
@@ -90,7 +91,12 @@ const AIChatBot = ({
         setHasSavedChat(!!(saved && JSON.parse(saved).length));
       }
     } catch {}
-  }, []);
+  }, [
+    setChatHistory,
+    setChatStarted,
+    setConversationMemory,
+    setQueriesSent,
+  ]);
 
   useEffect(() => {
     if (chatHistory.length > 0) {
@@ -104,7 +110,6 @@ const AIChatBot = ({
   const [clicked, setClicked] = useState(false);
   const [isCooldown, setIsCooldown] = useState(false);
   const clickCount = useRef(0); // Use useRef to keep track of click count across renders
-  const [key, setKey] = useState(0); // State to reset the animation on click
   const [frameIndex, setFrameIndex] = useState(0); // Track current frame index
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -173,7 +178,7 @@ const AIChatBot = ({
     setShowToast(
       queriesSent >= MAX_QUERIES - TOAST_THRESHOLD && queriesSent <= MAX_QUERIES
     );
-  }, [queriesSent]);
+  }, [MAX_QUERIES, queriesSent]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -241,13 +246,13 @@ const AIChatBot = ({
   };
 
   // Fully stop playback
-  const handleAudioStop = () => {
+  const handleAudioStop = useCallback(() => {
     speechSynthesis.cancel();
     clearInterval(timerRef.current);
     setAudioPlaying(false);
     setAudioPaused(false);
     setAudioCurrent(0);
-  };
+  }, []);
 
   const handleRegenerate = (id) => {
     // find prior user message
@@ -276,8 +281,6 @@ const AIChatBot = ({
     if (audioPlaying) {
       const last = msgs[msgs.length - 1];
       // read the computed CSS padding-bottom (e.g. "12px")
-      const comp = window.getComputedStyle(last).paddingBottom;
-      const current = parseFloat(comp) || 0;
       last.style.marginBottom = `20px`;
     }
   }, [audioPlaying, chatHistory]);
@@ -292,7 +295,7 @@ const AIChatBot = ({
     return () => {
       handleAudioStop();
     };
-  }, [isMinimized, isClosed]);
+  }, [audioPlaying, handleAudioStop, isClosed, isMinimized]);
 
   const starterQuestions = [
     "What skills have your developed from your experiences?",
@@ -440,10 +443,13 @@ const AIChatBot = ({
             }}
           >
             <animated.img
-              src={`${process.env.PUBLIC_URL}/system-user.webp`}
+              src={systemAvatar}
               alt="Profile"
               className={` img-responsive img-circle${frames[frameIndex]}`}
               draggable="false"
+              loading="lazy"
+              width={160}
+              height={160}
               style={{
                 boxShadow,
                 transform: isHovering
@@ -461,11 +467,7 @@ const AIChatBot = ({
               }}
             />
           </motion.div>
-          {/* <img
-            src={`${process.env.PUBLIC_URL}/system-user.webp`}
-            alt="AI"
-            className="avatar intro-avatar"
-          /> */}
+          {/* <img src={systemAvatar} alt="AI" className="avatar intro-avatar" /> */}
           <motion.h2
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -643,9 +645,7 @@ const AIChatBot = ({
                   className={`message ${msg.sender}`}
                 >
                   <motion.img
-                    src={`${process.env.PUBLIC_URL}/${
-                      msg.sender === "ai" ? "system-user.webp" : "user-icon.svg"
-                    }`}
+                    src={msg.sender === "ai" ? systemAvatar : userAvatar}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{
@@ -663,6 +663,9 @@ const AIChatBot = ({
                     }}
                     alt={msg.sender}
                     className={`avatar ${msg.sender}-avatar`}
+                    loading="lazy"
+                    width={48}
+                    height={48}
                   />
                   <motion.div
                     className="bubble-container"
@@ -826,9 +829,12 @@ const AIChatBot = ({
                     </div>
                   </motion.div>
                   <img
-                    src={`${process.env.PUBLIC_URL}/user-icon.svg`}
+                    src={userAvatar}
                     alt="You"
                     className="avatar user-avatar-followup"
+                    loading="lazy"
+                    width={48}
+                    height={48}
                   />
                 </motion.div>
               )}

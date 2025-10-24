@@ -46,7 +46,13 @@ const CustomArrow = ({ direction, onClick, imgSrc, label }) => {
       onClick={handleClick}
       aria-label={label}
     >
-      <img src={imgSrc} alt={`${label} Arrow`} />
+      <img
+        src={imgSrc}
+        alt={`${label} Arrow`}
+        width={32}
+        height={32}
+        loading="lazy"
+      />
     </button>
   );
 };
@@ -169,8 +175,11 @@ const InvolvementTabPage = ({ addTab, isBatterySavingOn }) => {
                       <div className="career-image">
                         <img
                           src={involvement.involvementImages[0]}
-                          alt=""
+                          alt={involvement.involvementTitle}
                           className="career-image-content"
+                          loading="lazy"
+                          width={360}
+                          height={240}
                         />
                       </div>
                       <div className="career-details">
