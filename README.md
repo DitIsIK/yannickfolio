@@ -11,13 +11,19 @@ Dit project bevat de persoonlijke portfolio van Yannick Deetman. De content is g
 
 ## Build & ontwikkeling
 
-Ga naar de `frontend` map en gebruik de bestaande scripts:
+Ga naar de `frontend` map en gebruik de beschikbare scripts:
 
 ```bash
 cd frontend
 npm install
-npm run start   # start lokale ontwikkelserver
-npm run build   # bouwt productieversie
+npm run start       # start lokale ontwikkelserver
+npm run build       # bouwt lokaal naar ./build
+npm run build:dist  # bouwt naar ./dist (Netlify)
 ```
+
+### Netlify deploy
+
+- **Build command:** `npm run build:dist`
+- **Publish directory:** `dist`
 
 Veel plezier met het uitbreiden van de portfolio!

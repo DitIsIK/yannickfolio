@@ -6,11 +6,13 @@ import "../../styles/AboutPage.css";
 import { SpotlightBG } from "./SpotlightBG";
 // import AboutImg from "../../../public/Kartavya-Profile-Photo.webp";
 import siteData from "../../data/site";
+import withPublicPath from "../../utils/publicPath";
 
 const aboutStats = siteData.about.stats;
 
 function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
-  const resumeHref = `${process.env.PUBLIC_URL}${siteData.hero.secondaryCta.href}`;
+  const resumeHref = withPublicPath(siteData.hero.secondaryCta.href);
+  const profileImageSrc = withPublicPath(siteData.about.profileImage);
   const aiCompanionTitle = `${siteData.owner.name}'s AI Companion`;
   const feedTitle = `${siteData.owner.name}'s Feed`;
   useEffect(() => {
@@ -62,7 +64,7 @@ function AboutPage({ isBatterySavingOn, isWindowModalVisible, addTab }) {
           <div className="about-container">
             <motion.div className="about-row">
               <motion.img
-                src={`${process.env.PUBLIC_URL}${siteData.about.profileImage}`}
+                src={profileImageSrc}
                 className="about-image"
                 alt={`${siteData.owner.name} portret`}
                 width={360}

@@ -12,13 +12,25 @@ import RightArrow from "../../assets/img/icons/arrow2.svg";
 
 const CustomLeftArrow = ({ onClick }) => (
   <button className="custom-arrow custom-left-arrow" onClick={onClick}>
-    <img src={LeftArrow} alt="Left Arrow" />
+    <img
+      src={LeftArrow}
+      alt="Left Arrow"
+      width={32}
+      height={32}
+      loading="lazy"
+    />
   </button>
 );
 
 const CustomRightArrow = ({ onClick }) => (
   <button className="custom-arrow custom-right-arrow" onClick={onClick}>
-    <img src={RightArrow} alt="Right Arrow" />
+    <img
+      src={RightArrow}
+      alt="Right Arrow"
+      width={32}
+      height={32}
+      loading="lazy"
+    />
   </button>
 );
 

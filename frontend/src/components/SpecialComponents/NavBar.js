@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../services/variants";
 import "../../styles/NavBar.css";
 import siteData from "../../data/site";
+import withPublicPath from "../../utils/publicPath";
 
 const NavBar = ({ isBatterySavingOn, addTab }) => {
   const [activeLink, setActiveLink] = useState("home");
@@ -10,6 +11,8 @@ const NavBar = ({ isBatterySavingOn, addTab }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const menuRef = useRef(null); // Reference to the navbar menu
+
+  const resumeHref = withPublicPath(siteData.hero.secondaryCta.href);
 
   const onUpdateActiveLink = (link) => {
     setActiveLink(link);
@@ -391,7 +394,7 @@ const NavBar = ({ isBatterySavingOn, addTab }) => {
             >
               <a
                 download="Yannick_Deetman_CV.pdf"
-                href={`${process.env.PUBLIC_URL}${siteData.hero.secondaryCta.href}`}
+                href={resumeHref}
                 className="navbar-link"
                 target="_blank"
                 rel="noopener noreferrer"

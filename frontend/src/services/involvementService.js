@@ -1,9 +1,5 @@
 import siteData from "../data/site";
-
-const basePublicUrl = process.env.PUBLIC_URL || "";
-
-const withPublicUrl = (paths = []) =>
-  (paths || []).map((path) => `${basePublicUrl}${path}`);
+import { withPublicPaths } from "../utils/publicPath";
 
 const withSlug = (title) =>
   title
@@ -16,7 +12,7 @@ export const fetchInvolvements = async () => {
     ...involvement,
     involvementLink:
       involvement.involvementLink || withSlug(involvement.involvementTitle),
-    involvementImages: withPublicUrl(involvement.involvementImages),
+    involvementImages: withPublicPaths(involvement.involvementImages),
   }));
 };
 

@@ -5,6 +5,7 @@ import { styled, keyframes } from "@stitches/react";
 import Footer from "../SpecialComponents/Footer";
 import emailjs from "@emailjs/browser";
 import siteData from "../../data/site";
+import withPublicPath from "../../utils/publicPath";
 import "../../styles/ContactPage.css";
 
 function ContactPage({ isBatterySavingOn, addTab }) {
@@ -92,6 +93,8 @@ function ContactPage({ isBatterySavingOn, addTab }) {
     return () => window.removeEventListener("resize", updateScale);
   }, []);
 
+  const contactBackgroundImage = withPublicPath("contact-bg.webp");
+
   return (
     <>
       <AnimatePresence>
@@ -119,7 +122,7 @@ function ContactPage({ isBatterySavingOn, addTab }) {
           className="contact-page"
           ref={containerRef}
           style={{
-            backgroundImage: `url('${process.env.PUBLIC_URL}/contact-bg.webp')`,
+            backgroundImage: `url('${contactBackgroundImage}')`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",

@@ -482,7 +482,13 @@ function SkillPage({ isBatterySavingOn, isWindowModalVisible }) {
                   rel="noopener noreferrer"
                   className="github-icon"
                 >
-                  <img src={github} alt="GitHub" />
+                  <img
+                    src={github}
+                    alt="GitHub"
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                  />
                 </a>
 
                 <BarChart

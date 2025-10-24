@@ -1,9 +1,5 @@
 import siteData from "../data/site";
-
-const basePublicUrl = process.env.PUBLIC_URL || "";
-
-const withPublicUrl = (paths = []) =>
-  (paths || []).map((path) => `${basePublicUrl}${path}`);
+import { withPublicPaths } from "../utils/publicPath";
 
 const withSlug = (title) =>
   title
@@ -16,7 +12,7 @@ export const fetchHonorsExperiences = async () => {
     ...honor,
     honorsExperienceLink:
       honor.honorsExperienceLink || withSlug(honor.honorsExperienceTitle),
-    honorsExperienceImages: withPublicUrl(honor.honorsExperienceImages),
+    honorsExperienceImages: withPublicPaths(honor.honorsExperienceImages),
   }));
 };
 

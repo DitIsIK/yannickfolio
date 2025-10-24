@@ -1,9 +1,5 @@
 import siteData from "../data/site";
-
-const basePublicUrl = process.env.PUBLIC_URL || "";
-
-const withPublicUrl = (paths = []) =>
-  (paths || []).map((path) => `${basePublicUrl}${path}`);
+import { withPublicPaths } from "../utils/publicPath";
 
 const withSlug = (title) =>
   title
@@ -16,7 +12,7 @@ export const fetchYearInReviews = async () => {
     ...review,
     yearInReviewLink:
       review.yearInReviewLink || withSlug(review.yearInReviewTitle),
-    yearInReviewImages: withPublicUrl(review.yearInReviewImages),
+    yearInReviewImages: withPublicPaths(review.yearInReviewImages),
   }));
 };
 

@@ -13,8 +13,9 @@ import {
 } from "framer-motion";
 import { zoomIn } from "../../services/variants";
 import "../../styles/HomePage.css";
-// import ProfilePhoto from `${process.env.PUBLIC_URL}/Kartavya.webp`;
+// import ProfilePhoto from withPublicPath("Kartavya.webp");
 import siteData from "../../data/site";
+import withPublicPath from "../../utils/publicPath";
 
 function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
   const [clicked, setClicked] = useState(false);
@@ -43,6 +44,9 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
   };
 
   const keywords = siteData.hero.keywords;
+  const homeBackgroundImage = withPublicPath("home-bg.webp");
+  const profileImageSrc = withPublicPath(siteData.about.profileImage);
+  const resumeHref = withPublicPath(siteData.hero.secondaryCta.href);
 
   const handleMouseMove = (event) => {
     const { clientX, clientY } = event;
@@ -177,7 +181,7 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                 rgba(0, 0, 0, 0.25),
                 rgba(0, 0, 0, 0.1),
                 rgba(0, 0, 0, 0.1)
-              ), url('${process.env.PUBLIC_URL}/home-bg.webp'))`,
+              ), url('${homeBackgroundImage}'))`,
                   backgroundRepeat: "no-repeat",
                   backgroundAttachment: "fixed",
                   backgroundPosition: "center",
@@ -194,7 +198,7 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                   rgba(0, 0, 0, 0.25),
                   rgba(0, 0, 0, 0.1),
                   rgba(0, 0, 0, 0.1)
-                ), url('${process.env.PUBLIC_URL}/home-bg.webp')`,
+                ), url('${homeBackgroundImage}')`,
                   backgroundRepeat: "no-repeat",
                   backgroundAttachment: "fixed",
                   backgroundPosition: "center",
@@ -233,10 +237,11 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                 whileInView={"show"}
               >
                 <animated.img
-                  src={`${process.env.PUBLIC_URL}${siteData.about.profileImage}`}
+                  src={profileImageSrc}
                   alt={`${siteData.owner.name} profiel`}
                   width={250}
                   height={250}
+                  loading="lazy"
                   className={`profile-picture img-circle${frames[frameIndex]}`}
                   draggable="false"
                   style={{
@@ -459,7 +464,7 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                   </StyledButton>
                   <StyledButton
                     as="a"
-                    href={`${process.env.PUBLIC_URL}${siteData.hero.secondaryCta.href}`}
+                    href={resumeHref}
                     download
                   >
                     <ButtonShadow />

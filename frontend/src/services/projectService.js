@@ -1,14 +1,10 @@
 import siteData from "../data/site";
-
-const basePublicUrl = process.env.PUBLIC_URL || "";
-
-const withPublicUrl = (paths = []) =>
-  (paths || []).map((path) => `${basePublicUrl}${path}`);
+import { withPublicPaths } from "../utils/publicPath";
 
 export const fetchProjects = async () => {
   return siteData.projects.map((project) => ({
     ...project,
-    projectImages: withPublicUrl(project.projectImages),
+    projectImages: withPublicPaths(project.projectImages),
   }));
 };
 
@@ -17,6 +13,6 @@ export const fetchProjectByLink = async (projectLink) => {
     (item) => item.projectLink === projectLink
   );
   return project
-    ? { ...project, projectImages: withPublicUrl(project.projectImages) }
+    ? { ...project, projectImages: withPublicPaths(project.projectImages) }
     : null;
 };

@@ -4,7 +4,7 @@ const siteData = {
       "Yannick Deetman — Communicatiestudent (HvA), vibecoding front end, fotografie",
     description:
       "Eerstejaars communicatie student aan de HvA. Houd van strak en gestructureerd werken en dingen die echt werkelijk goed afgemaakt zijn.",
-    image: "/assets/meta/og-image.svg",
+    image: "assets/meta/og-image.svg",
     twitterHandle: "@DitIsIK",
   },
   owner: {
@@ -34,7 +34,7 @@ const siteData = {
     primaryCta: { label: "Bekijk projecten", targetId: "projects" },
     secondaryCta: {
       label: "CV downloaden",
-      href: "/assets/cv/Yannick_Deetman_CV.pdf",
+      href: "assets/cv/Yannick_Deetman_CV.pdf",
     },
   },
   about: {
@@ -60,7 +60,7 @@ const siteData = {
       "Onderzoekstechnieken aanscherpen bij HvA Communicatie",
       "Fotografie & filmreviews cureren in Notion",
     ],
-    profileImage: "/assets/profile/yannick-deetman.svg",
+    profileImage: "assets/profile/yannick-deetman.svg",
   },
   skills: {
     primary: [
@@ -165,8 +165,8 @@ const siteData = {
           "Ondersteunt de productieafdeling met strakke assets en documentatie.",
         ],
         experienceImages: [
-          "/projects/sympafix-spijkerwijzer.svg",
-          "/projects/sympafix-volume-calculator.svg",
+          "projects/sympafix-spijkerwijzer.svg",
+          "projects/sympafix-volume-calculator.svg",
         ],
         experienceURLs: {
           demo: "https://sympafix-volumecalculator.netlify.app/",
@@ -182,7 +182,7 @@ const siteData = {
         experienceParagraphs: [
           "Placeholder: klaar om meer projecten en campagnes te dragen.",
         ],
-        experienceImages: ["/assets/profile/yannick-deetman.svg"],
+        experienceImages: ["assets/profile/yannick-deetman.svg"],
         experienceURLs: {},
       },
     ],
@@ -197,7 +197,7 @@ const siteData = {
           "Projectgroepen geleid rondom campagnes en contentformats.",
           "Experimenten met UX writing en tone of voice voor verschillende kanalen.",
         ],
-        involvementImages: ["/assets/profile/yannick-deetman.svg"],
+        involvementImages: ["assets/profile/yannick-deetman.svg"],
         involvementURLs: {
           linkedin: "https://share.google/hWghw0HQni8dMEci6",
         },
@@ -213,7 +213,7 @@ const siteData = {
         honorsExperienceParagraphs: [
           "Collega's gebruiken de tools nu op laptop én mobiel voor on-site beslissingen.",
         ],
-        honorsExperienceImages: ["/projects/sympafix-volume-calculator.svg"],
+        honorsExperienceImages: ["projects/sympafix-volume-calculator.svg"],
         honorsExperienceURLs: {
           demo: "https://sympafix-volumecalculator.netlify.app/",
         },
@@ -230,7 +230,7 @@ const siteData = {
           "Sympafix Spijkerwijzer live gezet met positieve feedback.",
           "Portfolio workflows in Notion en Netlify opgezet.",
         ],
-        yearInReviewImages: ["/projects/sympafix-spijkerwijzer.svg"],
+        yearInReviewImages: ["projects/sympafix-spijkerwijzer.svg"],
         yearInReviewURLs: {
           notion: "https://notion.so",
         },
@@ -254,7 +254,7 @@ const siteData = {
         "De calculator vertaalt de Excel-formules van Sympafix naar een intuïtieve webapp, zodat monteurs sneller de juiste hoeveelheden bepalen.",
         "UI en copy afgestemd op productiepartners: duidelijke states, toetsenbordvriendelijk en te gebruiken op tablets.",
       ],
-      projectImages: ["/projects/sympafix-volume-calculator.svg"],
+      projectImages: ["projects/sympafix-volume-calculator.svg"],
       projectURLs: {
         demo: "https://sympafix-volumecalculator.netlify.app/",
       },
@@ -276,7 +276,7 @@ const siteData = {
         "Gebouwd als lichtgewicht tool zodat verkoop en productie direct compatibiliteit kan checken.",
         "Helder kleurgebruik en states maken inzichtelijk welke optie werkt en waarom.",
       ],
-      projectImages: ["/projects/sympafix-spijkerwijzer.svg"],
+      projectImages: ["projects/sympafix-spijkerwijzer.svg"],
       projectURLs: {
         demo: "https://spijkerwijzer.netlify.app/#mode=home",
       },
