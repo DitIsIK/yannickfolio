@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import { scale, zoomIn } from "../../services/variants";
 import { motion } from "framer-motion";
 import "../../styles/AIChatBot.css";
+import withPublicPath from "../../utils/publicPath";
 
 const TOAST_THRESHOLD = 5;
 
@@ -56,6 +57,8 @@ const AIChatBot = ({
     },
   });
   const micDisabled = !supported || permission === "denied";
+  const systemAvatar = withPublicPath("system-user.webp");
+  const userAvatar = withPublicPath("user-icon.svg");
   // ── AUDIO PLAYBACK STATE ───────────────────────────────────────
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [audioPaused, setAudioPaused] = useState(false);
@@ -440,10 +443,13 @@ const AIChatBot = ({
             }}
           >
             <animated.img
-              src={`${process.env.PUBLIC_URL}/system-user.webp`}
+              src={systemAvatar}
               alt="Profile"
               className={` img-responsive img-circle${frames[frameIndex]}`}
               draggable="false"
+              loading="lazy"
+              width={160}
+              height={160}
               style={{
                 boxShadow,
                 transform: isHovering
@@ -461,11 +467,7 @@ const AIChatBot = ({
               }}
             />
           </motion.div>
-          {/* <img
-            src={`${process.env.PUBLIC_URL}/system-user.webp`}
-            alt="AI"
-            className="avatar intro-avatar"
-          /> */}
+          {/* <img src={systemAvatar} alt="AI" className="avatar intro-avatar" /> */}
           <motion.h2
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -643,9 +645,7 @@ const AIChatBot = ({
                   className={`message ${msg.sender}`}
                 >
                   <motion.img
-                    src={`${process.env.PUBLIC_URL}/${
-                      msg.sender === "ai" ? "system-user.webp" : "user-icon.svg"
-                    }`}
+                    src={msg.sender === "ai" ? systemAvatar : userAvatar}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{
@@ -663,6 +663,9 @@ const AIChatBot = ({
                     }}
                     alt={msg.sender}
                     className={`avatar ${msg.sender}-avatar`}
+                    loading="lazy"
+                    width={48}
+                    height={48}
                   />
                   <motion.div
                     className="bubble-container"
@@ -826,9 +829,12 @@ const AIChatBot = ({
                     </div>
                   </motion.div>
                   <img
-                    src={`${process.env.PUBLIC_URL}/user-icon.svg`}
+                    src={userAvatar}
                     alt="You"
                     className="avatar user-avatar-followup"
+                    loading="lazy"
+                    width={48}
+                    height={48}
                   />
                 </motion.div>
               )}

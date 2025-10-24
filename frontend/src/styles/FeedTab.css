@@ -64,6 +64,13 @@
   place-items: center;
 }
 
+.feed-item-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .feed-timestamp {
   display: block;
   position: absolute;
@@ -138,6 +145,22 @@
   cursor: pointer;
   z-index: 1001;
   margin-left: 10px;
+}
+
+.feed-link-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 .feed-link-btn:hover {

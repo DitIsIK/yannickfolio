@@ -14,6 +14,7 @@ import ProjectPage from "./components/ProjectPage/ProjectPage";
 import ContactPage from "./components/ContactPage/ContactPage";
 import WindowModal from "./components/WindowModal/WindowModal";
 import PowerMode from "./components/SpecialComponents/PowerMode";
+import siteData from "./data/site";
 // import { cleanupEventListeners } from "./services/eventListenerRegistry";
 
 function App({ isBatterySavingOn, setIsBatterySavingOn }) {
@@ -439,7 +440,9 @@ function App({ isBatterySavingOn, setIsBatterySavingOn }) {
             <motion.div
               className={`ai-chat-btn`}
               onClick={() => {
-                addTab("AIChatTab", { title: "Kartavya's AI Companion" });
+                addTab("AIChatTab", {
+                  title: `${siteData.owner.name}'s AI Companion`,
+                });
               }}
               title="Links"
               initial={isBatterySavingOn ? {} : { opacity: 0, scale: 0 }}

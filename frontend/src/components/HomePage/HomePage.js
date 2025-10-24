@@ -13,7 +13,9 @@ import {
 } from "framer-motion";
 import { zoomIn } from "../../services/variants";
 import "../../styles/HomePage.css";
-// import ProfilePhoto from `${process.env.PUBLIC_URL}/Kartavya.webp`;
+// import ProfilePhoto from withPublicPath("Kartavya.webp");
+import siteData from "../../data/site";
+import withPublicPath from "../../utils/publicPath";
 
 function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
   const [clicked, setClicked] = useState(false);
@@ -41,10 +43,10 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
     setFrameIndex((prevIndex) => (prevIndex + 1) % frames.length); // Cycle frames
   };
 
-  const keywords = [
-    "Developing with Curiosity and Expertise | Always Learning & Innovating",
-    "Innovating AI-Powered Solutions | Experienced Full Stack Developer",
-  ];
+  const keywords = siteData.hero.keywords;
+  const homeBackgroundImage = withPublicPath("home-bg.webp");
+  const profileImageSrc = withPublicPath(siteData.about.profileImage);
+  const resumeHref = withPublicPath(siteData.hero.secondaryCta.href);
 
   const handleMouseMove = (event) => {
     const { clientX, clientY } = event;
@@ -131,7 +133,7 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
     if (!trimmed) return;
     // open the AIChatTab and pass the initialQuery in its data
     addTab("AIChatTab", {
-      title: "Kartavya's AI Companion",
+      title: `${siteData.owner.name}'s AI Companion`,
     });
     sendQuery(trimmed);
     // setQuery(trimmed);
@@ -179,7 +181,7 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                 rgba(0, 0, 0, 0.25),
                 rgba(0, 0, 0, 0.1),
                 rgba(0, 0, 0, 0.1)
-              ), url('${process.env.PUBLIC_URL}/home-bg.webp'))`,
+              ), url('${homeBackgroundImage}'))`,
                   backgroundRepeat: "no-repeat",
                   backgroundAttachment: "fixed",
                   backgroundPosition: "center",
@@ -196,7 +198,7 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                   rgba(0, 0, 0, 0.25),
                   rgba(0, 0, 0, 0.1),
                   rgba(0, 0, 0, 0.1)
-                ), url('${process.env.PUBLIC_URL}/home-bg.webp')`,
+                ), url('${homeBackgroundImage}')`,
                   backgroundRepeat: "no-repeat",
                   backgroundAttachment: "fixed",
                   backgroundPosition: "center",
@@ -235,8 +237,11 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                 whileInView={"show"}
               >
                 <animated.img
-                  src={`${process.env.PUBLIC_URL}/Kartavya.webp`}
-                  alt="Profile"
+                  src={profileImageSrc}
+                  alt={`${siteData.owner.name} profiel`}
+                  width={250}
+                  height={250}
+                  loading="lazy"
                   className={`profile-picture img-circle${frames[frameIndex]}`}
                   draggable="false"
                   style={{
@@ -267,7 +272,7 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                 initial="hidden"
                 animate="show"
               >
-                Kartavya Singh
+                {siteData.owner.name}
               </motion.h1>
 
               {/* Changing Text Animation */}
@@ -297,6 +302,15 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                   </span>
                 </em>
               </motion.div>
+
+              <motion.p
+                className="home-summary"
+                variants={isBatterySavingOn ? {} : zoomIn(0)}
+                initial="hidden"
+                animate="show"
+              >
+                {siteData.owner.bioShort}
+              </motion.p>
 
               <motion.form
                 initial={{ opacity: 0, scale: 0 }}
@@ -336,15 +350,13 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                   <button
                     type="button"
                     className={`mic-btn glass ${listening ? "active" : ""}`}
-                    // onMouseDown={start}
-                    // onMouseUp={stop}
-                    // onTouchStart={start}
-                    // onTouchEnd={stop}
                     onClick={(e) => {
                       e.preventDefault();
-                      addTab("AIChatTab", { title: "Kartavya's AI Companion" });
+                      addTab("AIChatTab", {
+                        title: `${siteData.owner.name}'s AI Companion`,
+                      });
                     }}
-                    aria-label={"Open AI Companion Tab"}
+                    aria-label={`Open ${siteData.owner.name}'s AI Companion`}
                   >
                     <i className={`fas fa-expand`} />
                   </button>
@@ -393,7 +405,9 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                   value={listening ? interimQuery : query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`${
-                    listening ? "Transcribing..." : "Ask My AI Companion!"
+                    listening
+                      ? "Transcribing..."
+                      : `Vraag ${siteData.owner.name}'s AI Companion iets!`
                   }`}
                   onKeyDown={(e) => {
                     // Enter=send, Shift+Enter=newline
@@ -436,32 +450,28 @@ function HomePage({ isBatterySavingOn, scrolled, addTab, sendQuery }) {
                 variants={isBatterySavingOn ? {} : zoomIn(0)}
                 initial="hidden"
                 animate="show"
-                whileHover={{
-                  scale: 1.05,
-                  transition: { scale: { delay: 0, type: "spring" } },
-                }}
-                whileTap={{
-                  scale: 1,
-                  transition: { scale: { delay: 0, type: "spring" } },
-                }}
-                // drag="false"
-                // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-                // dragElastic={0.3}
-                // dragTransition={{
-                //   bounceStiffness: 250,
-                //   bounceDamping: 15,
-                // }}
               >
-                <StyledButton
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection("about");
-                  }}
-                >
-                  <ButtonShadow />
-                  <ButtonEdge />
-                  <ButtonLabel>Enter Portfolio</ButtonLabel>
-                </StyledButton>
+                <div className="home-cta-group">
+                  <StyledButton
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(siteData.hero.primaryCta.targetId);
+                    }}
+                  >
+                    <ButtonShadow />
+                    <ButtonEdge />
+                    <ButtonLabel>{siteData.hero.primaryCta.label}</ButtonLabel>
+                  </StyledButton>
+                  <StyledButton
+                    as="a"
+                    href={resumeHref}
+                    download
+                  >
+                    <ButtonShadow />
+                    <ButtonEdge />
+                    <ButtonLabel>{siteData.hero.secondaryCta.label}</ButtonLabel>
+                  </StyledButton>
+                </div>
               </motion.div>
             </div>
           </div>

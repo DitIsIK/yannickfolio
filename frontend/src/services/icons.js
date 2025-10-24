@@ -34,6 +34,17 @@ import hindi from "../assets/img/icons/hindi.svg";
 import japanese from "../assets/img/icons/japanese.svg";
 import french from "../assets/img/icons/french.svg";
 import arabic from "../assets/img/icons/arabic.png";
+import html from "../assets/img/icons/html.svg";
+import tailwind from "../assets/img/icons/tailwind.svg";
+import design from "../assets/img/icons/design.svg";
+import uxwriting from "../assets/img/icons/uxwriting.svg";
+import communication from "../assets/img/icons/communication.svg";
+import photography from "../assets/img/icons/photography.svg";
+import film from "../assets/img/icons/film.svg";
+import social from "../assets/img/icons/social.svg";
+import notion from "../assets/img/icons/notion.svg";
+import git from "../assets/img/icons/git.svg";
+import netlify from "../assets/img/icons/netlify.svg";
 
 const icons = {
   javascript,
@@ -72,6 +83,17 @@ const icons = {
   japanese,
   french,
   arabic,
+  html,
+  tailwind,
+  design,
+  uxwriting,
+  communication,
+  photography,
+  film,
+  social,
+  notion,
+  git,
+  netlify,
 };
 
 export default icons;

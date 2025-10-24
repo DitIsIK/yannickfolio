@@ -44,7 +44,13 @@ const CustomArrow = ({ direction, onClick, imgSrc, label }) => {
       onClick={handleClick}
       aria-label={label}
     >
-      <img src={imgSrc} alt={`${label} Arrow`} />
+      <img
+        src={imgSrc}
+        alt={`${label} Arrow`}
+        width={32}
+        height={32}
+        loading="lazy"
+      />
     </button>
   );
 };
@@ -168,8 +174,11 @@ const CareerTabPage = ({ addTab, isBatterySavingOn }) => {
                       <div className="career-image">
                         <img
                           src={experience.experienceImages[0]}
-                          alt=""
+                          alt={experience.experienceTitle}
                           className="career-image-content"
+                          loading="lazy"
+                          width={360}
+                          height={240}
                         />
                       </div>
                       <div className="career-details">

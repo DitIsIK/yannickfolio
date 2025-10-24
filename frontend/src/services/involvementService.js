@@ -1,27 +1,25 @@
-import axios from "axios";
+import siteData from "../data/site";
+import { withPublicPaths } from "../utils/publicPath";
 
-const API_URL = `${process.env.REACT_APP_API_URI}`;
+const withSlug = (title) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
-// Fetch all involvements
 export const fetchInvolvements = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/getinvolvements`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching involvements:", error);
-    throw error;
-  }
+  return siteData.experience.involvements.map((involvement) => ({
+    ...involvement,
+    involvementLink:
+      involvement.involvementLink || withSlug(involvement.involvementTitle),
+    involvementImages: withPublicPaths(involvement.involvementImages),
+  }));
 };
 
-// Fetch a specific involvement by involvementLink
 export const fetchInvolvementByLink = async (involvementLink) => {
-  try {
-    const response = await axios.get(
-      `${API_URL}/getinvolvements/${involvementLink}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching involvement by link:", error);
-    throw error;
-  }
+  const involvement = (await fetchInvolvements()).find(
+    (item) => item.involvementLink === involvementLink
+  );
+
+  return involvement || null;
 };
